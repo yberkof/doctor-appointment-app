@@ -10,7 +10,19 @@ dependencies:
   flutter_map:
   get:
   cached_network_image: ^3.2.0
-
+  intl:
+  firebase_auth:
+  firebase_core:
+  flutter_svg:
+  cloud_firestore:
+  cool_alert:
+  marquee:
+  firebase_storage:
+  firebase_analytics:
+  image_picker:
+  path:
+  dropdown_plus:
+  date_time_picker:
 dev_dependencies:
   flutter_test:
     sdk: flutter
