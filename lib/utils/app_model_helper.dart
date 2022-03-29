@@ -9,7 +9,8 @@ class AppModelHelper {
   AppModelHelper._();
 
   static var shared = AppModelHelper._();
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference<Map<String, dynamic>> users =
+      FirebaseFirestore.instance.collection('users');
 
   void loadCurrentUser(VoidCallback callback) {
     try {

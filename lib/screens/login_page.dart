@@ -16,16 +16,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TapGestureRecognizer registerOnTap;
+  TapGestureRecognizer? registerOnTap;
 
-  TextEditingController _passwordController;
+  TextEditingController? _passwordController;
 
-  TextEditingController _emailController;
+  TextEditingController? _emailController;
 
   @override
   void initState() {
     registerOnTap = TapGestureRecognizer();
-    registerOnTap
+    registerOnTap!
       ..onTap = () {
         Navigator.push(
           context,
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
               AppTextField(
                 hint: S.of(context).emailId,
                 icon: Icons.email,
-                controller: _emailController,
+                controller: _emailController!,
               ),
               SizedBox(height: 12),
               AppTextField(
@@ -73,14 +73,15 @@ class _LoginPageState extends State<LoginPage> {
                 isObscureText: true,
                 helpContent: Text(
                   S.of(context).forgot,
-                  style: TextStyle(fontSize: 16, color: Themes.colorPrimary),
+                  style: TextStyle(
+                      fontSize: 16, color: Theme.of(context).primaryColor),
                 ),
-                controller: _passwordController,
+                controller: _passwordController!,
                 helpOnTap: () {},
               ),
               SizedBox(height: 12),
               FlatButton(
-                color: Themes.colorPrimary,
+                color: Theme.of(context).primaryColor,
                 padding: EdgeInsets.all(16),
                 child: Text(
                   S.of(context).login,
@@ -94,8 +95,8 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   AlertHelper.showProgressDialog(context);
                   AuthenticationService(FirebaseAuth.instance)
-                      .signIn(context, _emailController.text,
-                          _passwordController.text)
+                      .signIn(context, _emailController!.text,
+                          _passwordController!.text)
                       .then((value) {
                     if (value != null) {
                       AppModelHelper.shared.loadCurrentUser(() {
@@ -147,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextSpan(
                       text: S.of(context).register,
                       style: TextStyle(
-                        color: Themes.colorPrimary,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                       recognizer: registerOnTap,

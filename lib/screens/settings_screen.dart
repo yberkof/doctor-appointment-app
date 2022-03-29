@@ -1,13 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ui/generated/l10n.dart';
-import 'package:ui/models/app_model.dart';
-import 'package:ui/screens/login_page.dart';
-import 'package:ui/screens/upload_image_screen.dart';
-import 'package:ui/services/auth_service.dart';
-import 'package:ui/utils/alert_helper.dart';
+import 'package:medicare/screens/upload_image_screen.dart';
+
+import '../generated/l10n.dart';
+import '../models/app_model.dart';
+import '../services/auth_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -39,9 +37,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
       child: CircleAvatar(
         radius: 100.0,
-        backgroundImage: AppModel.shared.currentUser.value.image != null
+        backgroundImage: AppModel.shared.currentUser!.value!.image != null
             ? CachedNetworkImageProvider(
-                AppModel.shared.currentUser.value.image)
+                AppModel.shared.currentUser.value!.image!)
             : AssetImage("assets/images/user.png"),
       ),
     );

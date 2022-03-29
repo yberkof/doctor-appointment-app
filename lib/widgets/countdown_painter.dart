@@ -3,31 +3,31 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 class CountdownPainter extends CustomPainter {
-  final Color bgColor;
-  final Color lineColor;
-  final double percent;
-  final double width;
+  final Color? bgColor;
+  final Color? lineColor;
+  final double? percent;
+  final double? width;
 
   CountdownPainter({this.bgColor, this.lineColor, this.percent, this.width});
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint bgLine = Paint()
-      ..color = bgColor
+      ..color = bgColor!
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = width;
+      ..strokeWidth = width!;
 
     Paint completeLine = Paint()
-      ..color = lineColor
+      ..color = lineColor!
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = width;
+      ..strokeWidth = width!;
 
     Offset center = Offset(size.width / 2, size.height / 2);
     double radius = min(size.width / 2, size.height / 2);
 
-    double sweepAngle = 2 * pi * percent;
+    double sweepAngle = 2 * pi * percent!;
 
     canvas.drawCircle(center, radius, bgLine);
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2,

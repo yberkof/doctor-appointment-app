@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:ui/config/themes.dart';
-import 'package:ui/generated/l10n.dart';
-import 'package:ui/screens/settings_screen.dart';
+
+import '../generated/l10n.dart';
+import '../screens/settings_screen.dart';
 
 class HomeForNotImplementedRole extends StatelessWidget {
   const HomeForNotImplementedRole({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Material(
-        color: Themes.colorHeader,
+        color: Colors.black,
         child: Column(
           children: [
             Center(

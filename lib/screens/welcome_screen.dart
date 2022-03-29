@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ui/constants.dart';
-import 'package:ui/screens/login_page.dart';
+
+import 'login_page.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -58,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Text(
                   "Check your assignments, and exams dates in no time on the go!",
                   style: TextStyle(
-                    color: kTextColor,
+                    color: Colors.black,
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,
                   ),
@@ -81,7 +81,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       color: Theme.of(context).accentColor,
                     ),
                     child: Row(
-                      children: <Widget>[
+                      children: const <Widget>[
                         Text(
                           "GET STARTED",
                           style: TextStyle(

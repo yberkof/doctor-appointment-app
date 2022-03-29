@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medicare/screens/home.dart';
 
 import '../models/app_model.dart';
 
@@ -8,13 +9,13 @@ class RouteHelper {
   RouteHelper._();
 
   Widget getHomeByRole() {
-    switch (AppModel.shared.currentUser.value.role) {
+    switch (AppModel.shared.currentUser.value?.role) {
       case '3':
-        return TeacherBottomNavigation();
-      case '4':
-        return StudentBottomNavigation();
+        return Home();
+      // case '4':
+      //   return StudentBottomNavigation();
       default:
-        return HomeForNotImplementedRole();
+        return Home();
     }
   }
 }

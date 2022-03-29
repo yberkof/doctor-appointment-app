@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
-import 'package:ui/generated/l10n.dart';
-import 'package:ui/models/app_model.dart';
 
+import '../generated/l10n.dart';
 import '../models/app_model.dart';
 
 class Header extends StatelessWidget {
@@ -28,15 +27,15 @@ class Header extends StatelessWidget {
                       Text(
                         S.of(context).name +
                             ' ' +
-                            appModel.currentUser.value.firstName +
+                            appModel.currentUser.value!.firstName +
                             ' ' +
-                            appModel.currentUser.value.lastName,
+                            appModel.currentUser.value!.lastName,
                         style: _getTextStyle(fontSize: 20),
                       ),
                       Text(
                         S.of(context).email +
                             ' ' +
-                            appModel.currentUser.value.email,
+                            appModel.currentUser.value!.email,
                         style: _getTextStyle(fontSize: 20),
                       ),
                     ],
@@ -52,14 +51,14 @@ class Header extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        getHeadAsset(),
+        getHeadAsset()!,
         Container(
           width: MediaQuery.of(context).size.width * 0.6,
           height: 30,
           child: Marquee(
-            text: appModel.currentUser.value.schoolName.length < 20
-                ? appModel.currentUser.value.schoolName + " " * 35
-                : appModel.currentUser.value.schoolName,
+            text: appModel.currentUser.value!.schoolName.length < 20
+                ? appModel.currentUser.value!.schoolName + " " * 35
+                : appModel.currentUser.value!.schoolName,
             style: _getTextStyle(),
             scrollAxis: Axis.horizontal,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,8 +84,8 @@ class Header extends StatelessWidget {
     );
   }
 
-  Widget getHeadAsset() {
-    switch (AppModel.shared.currentUser.value.role) {
+  Widget? getHeadAsset() {
+    switch (AppModel.shared.currentUser.value!.role) {
       case '4':
         return SvgPicture.asset(
           'assets/icons/grad_cap.png',

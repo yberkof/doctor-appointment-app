@@ -5,10 +5,10 @@ class User {
   String schoolName;
   String role;
   String uid;
-  String image = '';
+  String? image = '';
 
   User(
-      {required this.image,
+      {this.image,
       required this.uid,
       required this.email,
       required this.firstName,

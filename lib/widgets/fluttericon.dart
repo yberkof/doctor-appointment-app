@@ -19,7 +19,7 @@ class FlutterIcons {
   FlutterIcons._();
 
   static const _kFontFam = 'FlutterIcon';
-  static const String _kFontPkg = null;
+  static const String? _kFontPkg = null;
 
   static const IconData shop =
       IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);

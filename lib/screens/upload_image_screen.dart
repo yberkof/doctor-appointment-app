@@ -5,9 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'package:ui/models/app_model.dart';
-import 'package:ui/services/users_service.dart';
-import 'package:ui/utils/alert_helper.dart';
+
+import '../models/app_model.dart';
+import '../services/users_service.dart';
+import '../utils/alert_helper.dart';
 
 class UploadImageScreen extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class UploadImageScreen extends StatefulWidget {
 }
 
 class _UploadImageScreenState extends State<UploadImageScreen> {
-  File _imageFile;
+  File? _imageFile;
 
   ///NOTE: Only supported on Android & iOS
   ///Needs image_picker plugin {https://pub.dev/packages/image_picker}
@@ -25,22 +26,22 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
-      _imageFile = File(pickedFile.path);
+      _imageFile = File(pickedFile!.path);
     });
   }
 
   Future uploadImageToFirebase(BuildContext context) async {
     AlertHelper.showProgressDialog(context);
-    String fileName = basename(_imageFile.path);
+    String fileName = basename(_imageFile!.path);
     firebase_storage.Reference firebaseStorageRef = firebase_storage
         .FirebaseStorage.instance
         .ref()
         .child('uploads/$fileName');
     firebase_storage.TaskSnapshot taskSnapshot =
-        await firebaseStorageRef.putFile(_imageFile);
+        await firebaseStorageRef.putFile(_imageFile!);
     taskSnapshot.ref.getDownloadURL().then(
       (value) {
-        AppModel.shared.currentUser.value.image = value;
+        AppModel.shared.currentUser.value?.image = value;
         UsersService.shared
             .editUser(context, AppModel.shared.currentUser.value);
       },
@@ -90,7 +91,7 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30.0),
                           child: _imageFile != null
-                              ? Image.file(_imageFile)
+                              ? Image.file(_imageFile!)
                               : FlatButton(
                                   child: Image.asset("assets/images/user.png"),
                                   onPressed: pickImage,

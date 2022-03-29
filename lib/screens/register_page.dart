@@ -1,14 +1,14 @@
 import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ui/config/themes.dart';
-import 'package:ui/generated/l10n.dart';
-import 'package:ui/models/user.dart' as user;
-import 'package:ui/services/auth_service.dart';
-import 'package:ui/services/users_service.dart';
-import 'package:ui/utils/alert_helper.dart';
-import 'package:ui/widgets/app_outlinebutton.dart';
-import 'package:ui/widgets/app_textfield.dart';
+import 'package:medicare/models/user.dart' as user;
+
+import '../generated/l10n.dart';
+import '../services/auth_service.dart';
+import '../services/users_service.dart';
+import '../utils/alert_helper.dart';
+import '../widgets/app_outlinebutton.dart';
+import '../widgets/app_textfield.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -16,11 +16,11 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController _emailController;
-  TextEditingController _passwordController;
-  TextEditingController _firstNameController;
-  TextEditingController _lastNameController;
-  TextEditingController _schoolNameController;
+  TextEditingController? _emailController;
+  TextEditingController? _passwordController;
+  TextEditingController? _firstNameController;
+  TextEditingController? _lastNameController;
+  TextEditingController? _schoolNameController;
   var _roleDropdownEditingController =
       DropdownEditingController<Map<String, dynamic>>();
 
@@ -97,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   S.of(context).signUp,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Themes.colorHeader,
+                    color: Colors.white,
                     fontSize: 32,
                   ),
                 ),
@@ -134,13 +134,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 SizedBox(height: 24),
                 AppTextField(
-                  controller: _emailController,
+                  controller: _emailController!,
                   hint: S.of(context).emailId,
                   icon: Icons.email,
                 ),
                 SizedBox(height: 12),
                 AppTextField(
-                    controller: _passwordController,
+                    controller: _passwordController!,
                     hint: S.of(context).password,
                     icon: Icons.lock,
                     isObscureText: true),
@@ -182,25 +182,25 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 SizedBox(height: 12),
                 AppTextField(
-                  controller: _firstNameController,
+                  controller: _firstNameController!,
                   hint: S.of(context).firstName,
                   icon: Icons.person,
                 ),
                 SizedBox(height: 12),
                 AppTextField(
-                  controller: _lastNameController,
+                  controller: _lastNameController!,
                   hint: S.of(context).lastName,
                   icon: Icons.person,
                 ),
                 SizedBox(height: 12),
                 AppTextField(
-                  controller: _schoolNameController,
+                  controller: _schoolNameController!,
                   hint: S.of(context).schoolName,
                   icon: Icons.school,
                 ),
                 SizedBox(height: 12),
                 FlatButton(
-                  color: Themes.colorPrimary,
+                  color: Theme.of(context).primaryColor,
                   padding: EdgeInsets.all(16),
                   child: Text(
                     S.of(context).register,
@@ -214,26 +214,27 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () {
                     AlertHelper.showProgressDialog(context);
                     AuthenticationService(FirebaseAuth.instance)
-                        .signUp(context, _emailController.text,
-                            _passwordController.text)
+                        .signUp(context, _emailController!.text,
+                            _passwordController!.text)
                         .then((value) {
-                      if (value != null)
+                      if (value != null) {
                         UsersService.shared
                             .addUser(
                                 context,
                                 user.User(
-                                    email: _emailController.text,
-                                    firstName: _firstNameController.text,
-                                    lastName: _lastNameController.text,
-                                    schoolName: _schoolNameController.text,
-                                    uid: value.user.uid,
+                                    email: _emailController!.text,
+                                    firstName: _firstNameController!.text,
+                                    lastName: _lastNameController!.text,
+                                    schoolName: _schoolNameController!.text,
+                                    uid: value.user!.uid,
                                     role: _roleDropdownEditingController
-                                        .value['role']
+                                        .value!['role']
                                         .toString()))
                             .then((value) {
                           AlertHelper.hideProgressDialog(context);
                           Navigator.of(context).pop();
                         });
+                      }
                     });
                   },
                 ),
