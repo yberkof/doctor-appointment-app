@@ -73,12 +73,15 @@ class Header extends StatelessWidget {
           ),
         ),
         Obx(
-          () => CircleAvatar(
-            radius: 25.0,
-            backgroundImage: appModel.currentUser.value.image != null
-                ? CachedNetworkImageProvider(appModel.currentUser.value.image)
-                : AssetImage("assets/images/user.png"),
-          ),
+          () {
+            var image2 = appModel.currentUser.value!.image;
+            return CircleAvatar(
+              radius: 25.0,
+              backgroundImage: image2 != null
+                  ? CachedNetworkImageProvider(image2!)
+                  : Image.asset("assets/images/user.png").image,
+            );
+          },
         ),
       ],
     );

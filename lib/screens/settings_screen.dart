@@ -31,16 +31,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _buildCircleAvatar(BuildContext context) {
+    String? image2 = AppModel.shared.currentUser!.value!.image;
     return InkWell(
       onTap: () {
         changePhoto(context);
       },
       child: CircleAvatar(
         radius: 100.0,
-        backgroundImage: AppModel.shared.currentUser!.value!.image != null
-            ? CachedNetworkImageProvider(
-                AppModel.shared.currentUser.value!.image!)
-            : AssetImage("assets/images/user.png"),
+        backgroundImage: image2 != null
+            ? CachedNetworkImageProvider(image2!)
+            : Image.asset("assets/images/user.png").image,
       ),
     );
   }
