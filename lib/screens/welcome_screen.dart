@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:video_player/video_player.dart';
 
 import 'login_page.dart';
 
@@ -9,6 +9,21 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _controller = VideoPlayerController.asset('assets/logo_video.mp4')
+      ..initialize().then((value) {
+        setState() {}
+      });
+    _controller.play();
+    _controller.setLooping(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +35,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
+                  color: Theme.of(context).backgroundColor,
+                  image: DecorationImage(
+                      image: AssetImage('assets/on_board_cropped.jpg'),
+                      fit: BoxFit.fill)),
+            ),
+            Opacity(
+              opacity: 0.8,
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
               ),
             ),
             Column(
@@ -28,26 +55,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               children: <Widget>[
                 Column(
                   children: [
-                    ClipRRect(
-                      child: SvgPicture.asset(
-                        "assets/icons/grad_cap.png",
-                        height: 180.0,
-                        width: 180.0,
-                      ),
-                    ),
-                    Text(
-                      "GoSchool",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.1,
+                    SizedBox(
+                      child: Image.asset(
+                        'assets/logo_video.gif',
+                        width: 250,
+                        height: 250,
                       ),
                     ),
                     Text(
                       "Welcome",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 29.0,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.1,
@@ -56,7 +74,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ],
                 ),
                 Text(
-                  "Check your assignments, and exams dates in no time on the go!",
+                  "Check your Children vaccines Dates and Health Status in no time on the go!",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16.0,
@@ -78,7 +96,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     padding: EdgeInsets.only(left: 40.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50.0),
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).primaryColor,
                     ),
                     child: Row(
                       children: const <Widget>[
@@ -86,7 +104,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           "GET STARTED",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 15.0,
+                            fontSize: 16.0,
                             fontWeight: FontWeight.w400,
                           ),
                         ),

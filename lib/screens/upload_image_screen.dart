@@ -93,7 +93,7 @@ class _UploadImageScreenState extends State<UploadImageScreen> {
                           child: _imageFile != null
                               ? Image.file(_imageFile!)
                               : FlatButton(
-                                  child: Image.asset("assets/images/user.png"),
+                                  child: Image.asset("assets/user.png"),
                                   onPressed: pickImage,
                                 ),
                         ),

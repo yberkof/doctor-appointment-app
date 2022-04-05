@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicare/generated/l10n.dart';
+import 'package:medicare/models/app_model.dart';
 import 'package:medicare/models/child_model.dart';
 import 'package:medicare/styles/colors.dart';
 import 'package:medicare/styles/styles.dart';
@@ -496,25 +497,34 @@ class UserIntro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = AppModel.shared.currentUser.value;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
-              'Hello',
+              S.current.hello,
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             Text(
-              'Brad King 👋',
+              '${user!.firstName} ${user!.lastName} 👋',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ],
         ),
-        const CircleAvatar(
-          backgroundImage: AssetImage('assets/person.jpeg'),
-        )
+        Obx(
+          () {
+            var image2 = AppModel.shared.currentUser.value!.image;
+            return CircleAvatar(
+              radius: 25.0,
+              backgroundImage: image2 != null
+                  ? CachedNetworkImageProvider(image2!)
+                  : Image.asset("assets/user.png").image,
+            );
+          },
+        ),
       ],
     );
   }

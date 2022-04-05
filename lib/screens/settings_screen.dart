@@ -40,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         radius: 100.0,
         backgroundImage: image2 != null
             ? CachedNetworkImageProvider(image2!)
-            : Image.asset("assets/images/user.png").image,
+            : Image.asset("assets/user.png").image,
       ),
     );
   }
@@ -55,35 +55,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Padding(
       padding: EdgeInsets.only(top: 16),
       child: SizedBox(
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 35,
-              ),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 35,
+          ),
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
+            onPressed: () {
+              AuthenticationService(FirebaseAuth.instance).logout(context);
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.logout_sharp,
+                  size: 35,
+                  color: Theme.of(context).primaryColor,
                 ),
-                onPressed: () {
-                  AuthenticationService(FirebaseAuth.instance).logout(context);
-                },
-                child: Container(
+                Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   child: Text(
                     S.of(context).logout,
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
                 ),
-              ),
+              ],
             ),
-            Image.asset(
-              'assets/images/logout.png',
-              width: 50,
-              height: 50,
-            ),
-          ],
+          ),
         ),
       ),
     );

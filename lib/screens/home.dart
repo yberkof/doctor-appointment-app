@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medicare/screens/settings_screen.dart';
 import 'package:medicare/styles/colors.dart';
 import 'package:medicare/tabs/HomeTab.dart';
 import 'package:medicare/tabs/ScheduleTab.dart';
@@ -13,6 +14,7 @@ class Home extends StatefulWidget {
 List<Map> navigationBarItems = [
   {'icon': Icons.local_hospital, 'index': 0},
   {'icon': Icons.calendar_today, 'index': 1},
+  {'icon': Icons.settings, 'index': 2},
 ];
 
 class _HomeState extends State<Home> {
@@ -30,6 +32,7 @@ class _HomeState extends State<Home> {
         onPressedScheduleCard: goToSchedule,
       ),
       ScheduleTab(),
+      SettingsScreen()
     ];
 
     return Scaffold(

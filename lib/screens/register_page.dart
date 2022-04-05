@@ -7,7 +7,6 @@ import '../generated/l10n.dart';
 import '../services/auth_service.dart';
 import '../services/users_service.dart';
 import '../utils/alert_helper.dart';
-import '../widgets/app_outlinebutton.dart';
 import '../widgets/app_textfield.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -20,36 +19,30 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController? _passwordController;
   TextEditingController? _firstNameController;
   TextEditingController? _lastNameController;
-  TextEditingController? _schoolNameController;
   var _roleDropdownEditingController =
       DropdownEditingController<Map<String, dynamic>>();
 
   var _currentRole;
   final List<Map<String, dynamic>> _roles = [
     {
-      "name": "Super Admin",
-      "desc": "Having full access rights to all schools",
-      "role": 1
-    },
-    {
       "name": "Admin",
-      "desc": "Having full access rights of a School",
-      "role": 2
-    },
-    {
-      "name": "Teacher",
-      "desc": "Having Magenent access rights of a Organization",
-      "role": 3
-    },
-    {
-      "name": "Student",
-      "desc": "Having End User access rights to one student",
-      "role": 4
+      "desc": "Having full access rights to all schools",
+      "role": '1'
     },
     {
       "name": "Parent",
-      "desc": "Having End User access rights to multiple students",
-      "role": 5
+      "desc": "Having full access rights of a School",
+      "role": '2'
+    },
+    {
+      "name": "Nurse",
+      "desc": "Having Magenent access rights of an Organization",
+      "role": '3'
+    },
+    {
+      "name": "Doctor",
+      "desc": "Having End User access rights to one student",
+      "role": '4'
     },
   ];
 
@@ -61,8 +54,8 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController = TextEditingController();
     _firstNameController = TextEditingController();
     _lastNameController = TextEditingController();
-    _schoolNameController = TextEditingController();
     _roleDropdownEditingController.value = _roles[0];
+    _currentRole = _roles[1]['role'];
   }
 
   @override
@@ -80,13 +73,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Align(
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        "assets/register.jpg",
-                        height: 250,
+                      child: SizedBox(
+                        child: Image.asset(
+                          'assets/logo_video.gif',
+                          width: 250,
+                          height: 250,
+                        ),
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.keyboard_arrow_left),
+                      icon: Icon(
+                        Icons.keyboard_arrow_left,
+                        size: 36,
+                        color: Theme.of(context).primaryColor,
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -101,37 +101,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     fontSize: 32,
                   ),
                 ),
-                SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: AppOutlineButton(
-                        asset: "assets/google.png",
-                        onTap: () {},
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: AppOutlineButton(
-                        asset: "assets/facebook.png",
-                        onTap: () {},
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: AppOutlineButton(
-                        asset: "assets/apple.png",
-                        onTap: () {},
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 24),
-                Text(
-                  S.of(context).orRegisterWithEmail,
-                  style: TextStyle(color: Colors.black38),
-                  textAlign: TextAlign.center,
-                ),
                 SizedBox(height: 24),
                 AppTextField(
                   controller: _emailController!,
@@ -145,39 +114,47 @@ class _RegisterPageState extends State<RegisterPage> {
                     icon: Icons.lock,
                     isObscureText: true),
                 SizedBox(height: 12),
-                DropdownFormField<Map<String, dynamic>>(
-                  onEmptyActionPressed: () async {},
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      suffixIcon: Icon(Icons.arrow_drop_down),
-                      labelText: "Access"),
-                  onSaved: (dynamic str) {
-                    _currentRole = str;
-                  },
-                  controller: _roleDropdownEditingController,
-                  onChanged: (dynamic str) {
-                    _currentRole = str;
-                  },
-                  validator: (dynamic str) {},
-                  displayItemFn: (dynamic item) => Text(
-                    item['name'] ?? '',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  findFn: (dynamic str) async => _roles,
-                  filterFn: (dynamic item, str) =>
-                      item['name'].toLowerCase().indexOf(str.toLowerCase()) >=
-                      0,
-                  dropdownItemFn: (dynamic item, position, focused,
-                          dynamic lastSelectedItem, onTap) =>
-                      ListTile(
-                    title: Text(item['name']),
-                    subtitle: Text(
-                      item['desc'] ?? '',
-                    ),
-                    tileColor: focused
-                        ? Color.fromARGB(20, 0, 0, 0)
-                        : Colors.transparent,
-                    onTap: onTap,
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
+
+                  // dropdown below..
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    value: _currentRole,
+                    onChanged: (String? newValue) =>
+                        setState(() => _currentRole = newValue),
+                    items: _roles
+                        .map<DropdownMenuItem<String>>((var value) =>
+                            DropdownMenuItem<String>(
+                              value: value['role'],
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    value['name'],
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Theme.of(context).primaryColor),
+                                  ),
+                                  Text(
+                                    value['desc'],
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ))
+                        .toList(),
+
+                    // add extra sugar..
+                    icon: Icon(Icons.arrow_drop_down),
+                    iconSize: 42,
+                    underline: SizedBox(),
                   ),
                 ),
                 SizedBox(height: 12),
@@ -191,12 +168,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: _lastNameController!,
                   hint: S.of(context).lastName,
                   icon: Icons.person,
-                ),
-                SizedBox(height: 12),
-                AppTextField(
-                  controller: _schoolNameController!,
-                  hint: S.of(context).schoolName,
-                  icon: Icons.school,
                 ),
                 SizedBox(height: 12),
                 FlatButton(
@@ -225,7 +196,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                     email: _emailController!.text,
                                     firstName: _firstNameController!.text,
                                     lastName: _lastNameController!.text,
-                                    schoolName: _schoolNameController!.text,
                                     uid: value.user!.uid,
                                     role: _roleDropdownEditingController
                                         .value!['role']

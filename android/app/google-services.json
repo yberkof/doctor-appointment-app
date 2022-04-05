@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "100205016971",
+    "project_id": "children-vaccine-6784f",
+    "storage_bucket": "children-vaccine-6784f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100205016971:android:09f80715b8e7f490cde18e",
+        "android_client_info": {
+          "package_name": "com.example.medicare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100205016971-757h39hm8u8qm44udvf3mb3g56106lha.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medicare",
+            "certificate_hash": "b0e7d579e7b6122a62d80e3d5364566e8e716065"
+          }
+        },
+        {
+          "client_id": "100205016971-7dtcq4gmkpj1ppu1ug5udlt4qnf7igcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnAycgTdoY1WTvuu1aFuRZR308GRNil9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "100205016971-7dtcq4gmkpj1ppu1ug5udlt4qnf7igcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

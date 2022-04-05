@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:marquee/marquee.dart';
 
 import '../generated/l10n.dart';
 import '../models/app_model.dart';
@@ -52,26 +51,26 @@ class Header extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         getHeadAsset()!,
-        Container(
-          width: MediaQuery.of(context).size.width * 0.6,
-          height: 30,
-          child: Marquee(
-            text: appModel.currentUser.value!.schoolName.length < 20
-                ? appModel.currentUser.value!.schoolName + " " * 35
-                : appModel.currentUser.value!.schoolName,
-            style: _getTextStyle(),
-            scrollAxis: Axis.horizontal,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            blankSpace: 20.0,
-            velocity: 100.0,
-            pauseAfterRound: Duration(microseconds: 100),
-            startPadding: 10.0,
-            accelerationDuration: Duration(seconds: 1),
-            accelerationCurve: Curves.linear,
-            decelerationDuration: Duration(milliseconds: 500),
-            decelerationCurve: Curves.easeOut,
-          ),
-        ),
+        // Container(
+        //   width: MediaQuery.of(context).size.width * 0.6,
+        //   height: 30,
+        //   child: Marquee(
+        //     text: appModel.currentUser.value!.schoolName.length < 20
+        //         ? appModel.currentUser.value!.schoolName + " " * 35
+        //         : appModel.currentUser.value!.schoolName,
+        //     style: _getTextStyle(),
+        //     scrollAxis: Axis.horizontal,
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     blankSpace: 20.0,
+        //     velocity: 100.0,
+        //     pauseAfterRound: Duration(microseconds: 100),
+        //     startPadding: 10.0,
+        //     accelerationDuration: Duration(seconds: 1),
+        //     accelerationCurve: Curves.linear,
+        //     decelerationDuration: Duration(milliseconds: 500),
+        //     decelerationCurve: Curves.easeOut,
+        //   ),
+        // ),
         Obx(
           () {
             var image2 = appModel.currentUser.value!.image;

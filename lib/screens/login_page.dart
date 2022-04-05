@@ -7,7 +7,6 @@ import 'package:medicare/services/auth_service.dart';
 import 'package:medicare/utils/alert_helper.dart';
 import 'package:medicare/utils/app_model_helper.dart';
 import 'package:medicare/utils/route_helper.dart';
-import 'package:medicare/widgets/app_outlinebutton.dart';
 import 'package:medicare/widgets/app_textfield.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,15 +24,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     registerOnTap = TapGestureRecognizer();
-    registerOnTap!
-      ..onTap = () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => RegisterPage(),
-          ),
-        );
-      };
+    registerOnTap!.onTap = () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => RegisterPage(),
+        ),
+      );
+    };
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     super.initState();
@@ -48,9 +46,12 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.symmetric(horizontal: 12),
           child: ListView(
             children: [
-              Image.asset(
-                "assets/login.jpg",
-                height: 250,
+              SizedBox(
+                child: Image.asset(
+                  'assets/logo_video.gif',
+                  width: 250,
+                  height: 250,
+                ),
               ),
               Text(
                 S.of(context).login,
@@ -84,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: Theme.of(context).primaryColor,
                 padding: EdgeInsets.all(16),
                 child: Text(
-                  S.of(context).login,
+                  S.current.login,
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 shape: RoundedRectangleBorder(
@@ -110,37 +111,6 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
               SizedBox(height: 24),
-              Text(
-                S.of(context).orLoginWith,
-                style: TextStyle(color: Colors.black38),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppOutlineButton(
-                      asset: "assets/google.png",
-                      onTap: () {},
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: AppOutlineButton(
-                      asset: "assets/facebook.png",
-                      onTap: () {},
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: AppOutlineButton(
-                      asset: "assets/apple.png",
-                      onTap: () {},
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12),
               Text.rich(
                 TextSpan(
                   text: S.of(context).newToIthicklogistics,

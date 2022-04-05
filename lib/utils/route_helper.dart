@@ -10,7 +10,7 @@ class RouteHelper {
 
   Widget getHomeByRole() {
     switch (AppModel.shared.currentUser.value?.role) {
-      case '3':
+      case '1':
         return Home();
       // case '4':
       //   return StudentBottomNavigation();
