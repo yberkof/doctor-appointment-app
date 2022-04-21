@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -132,22 +130,6 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   void loadChildren() {
-    Timer(Duration(seconds: 4), () {
-      setState(() {
-        children.add(ChildModel(
-            childName: "Yahia",
-            childImageUrl:
-                "https://scontent.famm3-3.fna.fbcdn.net/v/t39.30808-6/242101783_4333689616750833_7156934199182653099_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeHwpNPslcXAQ_SGBnJP4VTw5aVqUwMcJTTlpWpTAxwlND8kxkKPAJur5vyDvN9HmeMfS__iq9gXVocF62Dd09MY&_nc_ohc=0-IdMAZG6-oAX_2wl31&tn=HbJyHiwAYlHLeWqo&_nc_zt=23&_nc_ht=scontent.famm3-3.fna&oh=00_AT9hFDhus-f8Pg1WAesLv19NtWayZUUWmmQBM_VyDj8OJw&oe=623D5CB5",
-            childDateOfBirth:
-                DateTime.tryParse("formattedString") ?? DateTime.now()));
-        children.add(ChildModel(
-            childName: "Ahmad",
-            childImageUrl:
-                "https://scontent.famm3-1.fna.fbcdn.net/v/t1.6435-9/133904969_3579729728809603_839849093526955439_n.jpg?_nc_cat=110&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeEJYOCP3Fa_UI_t-fL-_9FRNxDf2gmDCt43EN_aCYMK3rGarY9eA1cyt5Pi-G6RsDy-aNx6d7siHIajVs7q3RgU&_nc_ohc=Tw_1HtakAdcAX9f5k1p&_nc_ht=scontent.famm3-1.fna&oh=00_AT_wqARH9S9zXOADzI6HsCaCg9IW_yhFJPZaRLRKcFnlnQ&oe=62605085",
-            childDateOfBirth:
-                DateTime.tryParse("1998-10-5") ?? DateTime.now()));
-      });
-    });
   }
 }
 

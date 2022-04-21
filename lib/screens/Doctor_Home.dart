@@ -4,21 +4,22 @@ import 'package:medicare/styles/colors.dart';
 import 'package:medicare/tabs/HomeTab.dart';
 import 'package:medicare/tabs/ScheduleTab.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class DoctorHome extends StatefulWidget {
+  const DoctorHome({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _DoctorHomeState createState() => _DoctorHomeState();
 }
 
 List<Map> navigationBarItems = [
   {'icon': Icons.local_hospital, 'index': 0},
-  {'icon': Icons.calendar_today, 'index': 1},
+  {'icon': Icons.vaccines, 'index': 1},
   {'icon': Icons.settings, 'index': 2},
 ];
 
-class _HomeState extends State<Home> {
+class _DoctorHomeState extends State<DoctorHome> {
   int _selectedIndex = 0;
+
   void goToSchedule() {
     setState(() {
       _selectedIndex = 1;

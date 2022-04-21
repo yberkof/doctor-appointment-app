@@ -26,12 +26,12 @@ class _RegisterPageState extends State<RegisterPage> {
   final List<Map<String, dynamic>> _roles = [
     {
       "name": "Admin",
-      "desc": "Having full access rights to all schools",
+      "desc": "Having full access rights to all users",
       "role": '1'
     },
     {
       "name": "Parent",
-      "desc": "Having full access rights of a School",
+      "desc": "Add Children, Check vaccination status",
       "role": '2'
     },
     {
