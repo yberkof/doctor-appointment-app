@@ -36,14 +36,10 @@ class _RegisterPageState extends State<RegisterPage> {
     },
     {
       "name": "Nurse",
-      "desc": "Having Magenent access rights of an Organization",
+      "desc": "Organize appointments and patients",
       "role": '3'
     },
-    {
-      "name": "Doctor",
-      "desc": "Having End User access rights to one student",
-      "role": '4'
-    },
+    {"name": "Doctor", "desc": "add and edit scheduled vaccines", "role": '4'},
   ];
 
   @override

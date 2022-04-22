@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class MyColors {
   static int header01 = 0xff151a56;
   static int primary = 0xff575de3;
@@ -13,3 +15,5 @@ class MyColors {
   static int grey01 = 0xffe9ebf0;
   static int grey02 = 0xff9796af;
 }
+
+const kTextColor = Color(0xFF6C7174);

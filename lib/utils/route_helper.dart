@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medicare/screens/Doctor_Home.dart';
+import 'package:medicare/screens/doctor_home.dart';
 import 'package:medicare/screens/parent_home.dart';
 
 import '../models/app_model.dart';

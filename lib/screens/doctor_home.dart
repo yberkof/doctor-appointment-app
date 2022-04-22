@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medicare/screens/settings_screen.dart';
 import 'package:medicare/styles/colors.dart';
-import 'package:medicare/tabs/HomeTab.dart';
-import 'package:medicare/tabs/ScheduleTab.dart';
+
+import '../tabs/vaccines_tab.dart';
 
 class DoctorHome extends StatefulWidget {
   const DoctorHome({Key? key}) : super(key: key);
@@ -12,9 +12,8 @@ class DoctorHome extends StatefulWidget {
 }
 
 List<Map> navigationBarItems = [
-  {'icon': Icons.local_hospital, 'index': 0},
-  {'icon': Icons.vaccines, 'index': 1},
-  {'icon': Icons.settings, 'index': 2},
+  {'icon': Icons.vaccines, 'index': 0},
+  {'icon': Icons.settings, 'index': 1},
 ];
 
 class _DoctorHomeState extends State<DoctorHome> {
@@ -28,13 +27,7 @@ class _DoctorHomeState extends State<DoctorHome> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> screens = [
-      HomeTab(
-        onPressedScheduleCard: goToSchedule,
-      ),
-      ScheduleTab(),
-      SettingsScreen()
-    ];
+    List<Widget> screens = [VaccinesTab(), SettingsScreen()];
 
     return Scaffold(
       appBar: AppBar(
