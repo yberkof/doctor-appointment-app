@@ -33,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _buildCircleAvatar(BuildContext context) {
-    String? image2 = AppModel.shared.currentUser!.value!.image;
+    String? image2 = AppModel.shared.currentUser.value!.image;
     return InkWell(
       onTap: () {
         changePhoto(context);
@@ -41,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: CircleAvatar(
         radius: 100.0,
         backgroundImage: image2 != null
-            ? CachedNetworkImageProvider(image2!)
+            ? CachedNetworkImageProvider(image2)
             : Image.asset("assets/user.png").image,
       ),
     );

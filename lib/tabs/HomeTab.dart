@@ -491,7 +491,7 @@ class UserIntro extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             Text(
-              '${user!.firstName} ${user!.lastName} 👋',
+              '${user!.firstName} ${user.lastName} 👋',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ],
@@ -502,7 +502,7 @@ class UserIntro extends StatelessWidget {
             return CircleAvatar(
               radius: 25.0,
               backgroundImage: image2 != null
-                  ? CachedNetworkImageProvider(image2!)
+                  ? CachedNetworkImageProvider(image2)
                   : Image.asset("assets/user.png").image,
             );
           },

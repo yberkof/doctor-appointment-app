@@ -55,12 +55,8 @@ class _DoctorHomeState extends State<DoctorHome> {
                         : BorderSide.none,
                   ),
                 ),
-                child: Icon(
-                  navigationBarItem['icon'],
-                  color: _selectedIndex == 0
-                      ? Color(MyColors.bg01)
-                      : Color(MyColors.bg02),
-                ),
+                child: Icon(navigationBarItem['icon'],
+                    color: Color(MyColors.bg01)),
               ),
               label: '',
             ),

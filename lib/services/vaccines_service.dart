@@ -7,7 +7,7 @@ import '../utils/alert_helper.dart';
 class VaccinesService {
   static var shared = VaccinesService();
   CollectionReference vaccines =
-      FirebaseFirestore.instance.collection('Vaccines');
+      FirebaseFirestore.instance.collection('vaccines');
 
   Future<void> addVaccine(BuildContext context, Vaccine vaccine) {
     return vaccines
@@ -24,7 +24,7 @@ class VaccinesService {
       var querySnapshot = await vaccines.get();
       return querySnapshot.docs
           .map<Vaccine>(
-              (e) => Vaccine.fromJson(e!.data() as Map<String, dynamic>))
+              (e) => Vaccine.fromJson(e.data() as Map<String, dynamic>))
           .toList();
     } catch (error) {
       AlertHelper.showError(context, error.toString());

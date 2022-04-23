@@ -40,7 +40,7 @@ class AuthenticationService {
       Navigator.push(context, MaterialPageRoute(builder: (c) => LoginPage()));
       return "Signed out";
     } on FirebaseAuthException catch (e) {
-      return "Error Signout : " + e.message.toString() ?? S.current.failed;
+      return "Error Signout : " + e.message.toString();
     }
   }
 
@@ -52,7 +52,7 @@ class AuthenticationService {
       return userCredential;
     } on FirebaseAuthException catch (e) {
       AlertHelper.hideProgressDialog(context);
-      AlertHelper.showError(context, e.message.toString() ?? S.current.failed);
+      AlertHelper.showError(context, e.message.toString());
       return null;
     }
   }
