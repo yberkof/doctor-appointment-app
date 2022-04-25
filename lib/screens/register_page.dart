@@ -193,9 +193,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     firstName: _firstNameController!.text,
                                     lastName: _lastNameController!.text,
                                     uid: value.user!.uid,
-                                    role: _roleDropdownEditingController
-                                        .value!['role']
-                                        .toString()))
+                                    role: _currentRole))
                             .then((value) {
                           AlertHelper.hideProgressDialog(context);
                           Navigator.of(context).pop();
