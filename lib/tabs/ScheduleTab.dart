@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:medicare/models/app_model.dart';
 import 'package:medicare/models/appointment_model.dart';
+import 'package:medicare/screens/add_appointment_screen.dart';
 import 'package:medicare/services/appointments_service.dart';
 import 'package:medicare/styles/colors.dart';
 import 'package:medicare/styles/styles.dart';
@@ -20,6 +22,19 @@ class _ScheduleTabState extends State<ScheduleTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: AppModel.shared.currentUser.value!.role == '2'
+          ? FloatingActionButton(
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.teal,
+              onPressed: () {
+                showBottomSheet(
+                    context: context, builder: (c) => AddAppointmentScreen());
+              },
+            )
+          : Container(),
       body: FutureBuilder<List<Appointment>>(
           future: AppointmentsService().getAppointments(context),
           builder: (context, snapshot) {
@@ -50,7 +65,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               for (FilterStatus filterStatus
-                                  in FilterStatus.values)
+                              in FilterStatus.values)
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
@@ -111,8 +126,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                       child: ListView.builder(
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
-                          var appointment = snapshot.data![index];
-                          var _schedule = appointment;
+                          Appointment appointment = snapshot.data![index];
                           bool isLastElement =
                               snapshot.data!.length + 1 == index;
                           return Card(
@@ -128,7 +142,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                     children: [
                                       Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             appointment.doctorName,
@@ -141,7 +155,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                             height: 5,
                                           ),
                                           Text(
-                                            appointment.hospitalName,
+                                            appointment.vaccineName,
                                             style: TextStyle(
                                               color: Color(MyColors.grey02),
                                               fontSize: 12,
@@ -163,7 +177,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
                                         child: OutlinedButton(

@@ -12,29 +12,30 @@ String appointmentToJson(Appointment data) => json.encode(data.toJson());
 class Appointment {
   Appointment({
     required this.doctorName,
-    required this.hospitalName,
+    required this.vaccineName,
     required this.reservedDate,
     required this.reservedTime,
     required this.status,
   });
 
   String doctorName;
-  String hospitalName;
+  String vaccineName;
   String reservedDate;
   String reservedTime;
   String status;
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
         doctorName: json["doctorName"],
-        hospitalName: json["hospitalName"],
+        vaccineName: json["vaccineName"],
         reservedDate: json["reservedDate"],
         reservedTime: json["reservedTime"],
         status: json["status"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "doctorName": doctorName,
-        "hospitalName": hospitalName,
+        "vaccineName": vaccineName,
         "reservedDate": reservedDate,
         "reservedTime": reservedTime,
         "status": status,

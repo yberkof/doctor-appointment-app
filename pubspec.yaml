@@ -26,6 +26,7 @@ dependencies:
   dropdown_plus:
   date_time_picker:
   video_player:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

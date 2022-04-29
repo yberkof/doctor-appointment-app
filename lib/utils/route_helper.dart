@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medicare/screens/doctor_home.dart';
+import 'package:medicare/screens/nurse_home.dart';
 import 'package:medicare/screens/parent_home.dart';
 
 import '../models/app_model.dart';
@@ -15,6 +16,8 @@ class RouteHelper {
         return ParentHome();
       case '4':
         return DoctorHome();
+      case '2':
+        return NurseHome();
       default:
         return ParentHome();
     }

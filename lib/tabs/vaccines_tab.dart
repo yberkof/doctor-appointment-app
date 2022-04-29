@@ -24,7 +24,9 @@ class _VaccinesTabState extends State<VaccinesTab> {
               floatingActionButton: FloatingActionButton(
                 child: Icon(
                   Icons.add,
+                  color: Colors.white,
                 ),
+                backgroundColor: Colors.teal,
                 onPressed: () {
                   showBottomSheet(
                       context: context, builder: (c) => AddVaccineScreen());

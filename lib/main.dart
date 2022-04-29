@@ -38,12 +38,12 @@ class MyApp extends StatelessWidget {
       builder: fixTextScale,
       supportedLocales: S.delegate.supportedLocales,
       theme: ThemeData(
-        // Define the default brightness and colors.
-        brightness: Brightness.light,
-        primaryColor: Color(MyColors.primary),
-        accentColor: Color(MyColors.primary),
-
-        // Define the default font family.
+          primarySwatch: Colors.teal,
+          // Define the default brightness and colors.
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Color(MyColors.primary),
+          )
+          // Define the default font family.
 
         // Define the default `TextTheme`. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
