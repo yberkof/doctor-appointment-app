@@ -1,34 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:medicare/generated/l10n.dart';
 import 'package:medicare/models/app_model.dart';
 import 'package:medicare/models/child_model.dart';
 import 'package:medicare/styles/colors.dart';
-import 'package:medicare/styles/styles.dart';
 
-List<Map> doctors = [
-  {
-    'img': 'assets/doctor02.png',
-    'doctorName': 'Dr. Gardner Pearson',
-    'doctorTitle': 'Heart Specialist'
-  },
-  {
-    'img': 'assets/doctor03.jpeg',
-    'doctorName': 'Dr. Rosa Williamson',
-    'doctorTitle': 'Skin Specialist'
-  },
-  {
-    'img': 'assets/doctor02.png',
-    'doctorName': 'Dr. Gardner Pearson',
-    'doctorTitle': 'Heart Specialist'
-  },
-  {
-    'img': 'assets/doctor03.jpeg',
-    'doctorName': 'Dr. Rosa Williamson',
-    'doctorTitle': 'Skin Specialist'
-  }
-];
+import '../screens/add_child_screen.dart';
 
 class HomeTab extends StatefulWidget {
   final void Function() onPressedScheduleCard;
@@ -43,7 +22,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List<ChildModel> children = [];
+  List<Child> children = [];
 
   @override
   void initState() {
@@ -54,248 +33,141 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30),
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            UserIntro(),
-            SizedBox(
-              height: 10,
-            ),
-            SearchInput(),
-            SizedBox(
-              height: 20,
-            ),
-            CategoryIcons(),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Appointment Today',
-                  style: kTitleStyle,
-                ),
-                TextButton(
-                  child: Text(
-                    'See All',
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.teal,
+        onPressed: () {
+          showBottomSheet(context: context, builder: (c) => AddChildScreen());
+        },
+      ),
+      body: FutureBuilder<List<Child>>(builder: (context, snapShot) {
+        if (snapShot.hasData) {
+          return GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: ListView(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  UserIntro(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    S.current.yourChildren,
                     style: TextStyle(
-                      color: Color(MyColors.yellow01),
+                      color: Color(MyColors.header01),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onPressed: () {},
-                )
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            AppointmentCard(
-              onTap: widget.onPressedScheduleCard,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              S.current.yourChildren,
-              style: TextStyle(
-                color: Color(MyColors.header01),
-                fontWeight: FontWeight.bold,
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: children.length,
+                      itemBuilder: (context, index) {
+                        return TopDoctorCard(
+                          childModel: children[index],
+                        );
+                      })
+                ],
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: children.length,
-                itemBuilder: (context, index) {
-                  return TopDoctorCard(
-                    childModel: children[index],
-                  );
-                })
-          ],
-        ),
-      ),
+          );
+        }
+        return CircularProgressIndicator();
+      }),
     );
   }
 
   void loadChildren() {
+    children.add(Child(
+        childDateOfBirth: (DateTime.parse("2012-02-27")),
+        childName: "Name",
+        takenVaccines: [],
+        nationalId: '99875554455'));
   }
 }
 
 class TopDoctorCard extends StatelessWidget {
-  final ChildModel childModel;
+  final Child childModel;
 
   const TopDoctorCard({Key? key, required this.childModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 15,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: EdgeInsets.only(bottom: 20),
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(context, '/detail');
         },
-        child: Row(
-          children: [
-            Container(
-              color: Color(MyColors.grey01),
-              child: CachedNetworkImage(
-                width: Get.width * 0.15,
-                imageUrl: childModel.childImageUrl,
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 10,
               ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  childModel.childName,
-                  style: TextStyle(
-                    color: Color(MyColors.header01),
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  childModel.childDateOfBirth.toString(),
-                  style: TextStyle(
-                    color: Color(MyColors.grey02),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.star,
-                      color: Color(MyColors.yellow02),
-                      size: 18,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Name: ' + childModel.childName,
+                    style: TextStyle(
+                      color: Color(MyColors.header01),
+                      fontWeight: FontWeight.w700,
                     ),
-                    SizedBox(
-                      width: 5,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Date Of Birth: ' +
+                        DateFormat("dd/MM/yyyy")
+                            .format(childModel.childDateOfBirth),
+                    style: TextStyle(
+                      color: Color(MyColors.grey02),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
                     ),
-                    Text(
-                      '4.0 - 50 Reviews',
-                      style: TextStyle(color: Color(MyColors.grey02)),
-                    )
-                  ],
-                )
-              ],
-            )
-          ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Age: ' +
+                        (DateTime.now()
+                                    .difference(childModel.childDateOfBirth)
+                                    .inDays ~/
+                                365)
+                            .toString(),
+                    style: TextStyle(
+                      color: Color(MyColors.grey02),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
-    );
-  }
-}
-
-class AppointmentCard extends StatelessWidget {
-  final void Function() onTap;
-
-  const AppointmentCard({
-    Key? key,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Color(MyColors.primary),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: onTap,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage('assets/doctor01.jpeg'),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Dr.Muhammed Syahid',
-                                style: TextStyle(color: Colors.white)),
-                            SizedBox(
-                              height: 2,
-                            ),
-                            Text(
-                              'Dental Specialist',
-                              style: TextStyle(color: Color(MyColors.text01)),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ScheduleCard(),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          width: double.infinity,
-          height: 10,
-          decoration: BoxDecoration(
-            color: Color(MyColors.bg02),
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 40),
-          width: double.infinity,
-          height: 10,
-          decoration: BoxDecoration(
-            color: Color(MyColors.bg03),
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
@@ -323,58 +195,6 @@ class CategoryIcons extends StatelessWidget {
             text: category['text'],
           ),
       ],
-    );
-  }
-}
-
-class ScheduleCard extends StatelessWidget {
-  const ScheduleCard({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Color(MyColors.bg01),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      width: double.infinity,
-      padding: EdgeInsets.all(20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          Icon(
-            Icons.calendar_today,
-            color: Colors.white,
-            size: 15,
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Text(
-            'Mon, July 29',
-            style: TextStyle(color: Colors.white),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Icon(
-            Icons.access_alarm,
-            color: Colors.white,
-            size: 17,
-          ),
-          SizedBox(
-            width: 5,
-          ),
-          Flexible(
-            child: Text(
-              '11:00 ~ 12:10',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

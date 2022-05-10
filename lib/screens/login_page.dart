@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 24),
               Text.rich(
                 TextSpan(
-                  text: S.of(context).newToIthicklogistics,
+                  text: S.current.registerNewAccount,
                   children: [
                     TextSpan(
                       text: S.of(context).register,

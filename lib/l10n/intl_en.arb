@@ -30,5 +30,6 @@
   "hour": "Hour",
   "saveAlert": "Save Alert",
   "addHomework": "Add Homework",
-  "hello": "Hello"
+  "hello": "Hello",
+  "registerNewAccount": "Register New Account?"
 }

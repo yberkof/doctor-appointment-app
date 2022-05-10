@@ -27,12 +27,12 @@ class _RegisterPageState extends State<RegisterPage> {
     {
       "name": "Admin",
       "desc": "Having full access rights to all users",
-      "role": '1'
+      "role": '2'
     },
     {
       "name": "Parent",
       "desc": "Add Children, Check vaccination status",
-      "role": '2'
+      "role": '1'
     },
     {
       "name": "Nurse",

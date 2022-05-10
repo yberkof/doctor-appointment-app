@@ -370,6 +370,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Register New Account?`
+  String get registerNewAccount {
+    return Intl.message(
+      'Register New Account?',
+      name: 'registerNewAccount',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

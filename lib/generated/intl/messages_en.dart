@@ -53,6 +53,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "recentHomework":
             MessageLookupByLibrary.simpleMessage("Recent Homework"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "registerNewAccount":
+            MessageLookupByLibrary.simpleMessage("Register New Account?"),
         "retry": MessageLookupByLibrary.simpleMessage("Retry?"),
         "saveAlert": MessageLookupByLibrary.simpleMessage("Save Alert"),
         "schoolName": MessageLookupByLibrary.simpleMessage("School Name"),
