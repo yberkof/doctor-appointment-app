@@ -2,6 +2,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../models/child_model.dart';
 import '../services/child_service.dart';
@@ -106,9 +107,10 @@ class _AddChildScreenState extends State<AddChildScreen> {
                             context,
                             Child(
                               childName: _childNameController.text,
-                              childDateOfBirth: (selectedTime),
+                              childDateOfBirth:
+                                  DateFormat('dd/MM/yyyy').format(selectedTime),
                               takenVaccines: [],
-                              nationalId: '',
+                              nationalId: _nationalIdController.text,
                             ))
                         .then((value) {
                       AlertHelper.hideProgressDialog(context);

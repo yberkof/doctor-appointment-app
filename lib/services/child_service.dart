@@ -19,7 +19,7 @@ class ChildService {
     });
   }
 
-  Future<List<Child>> getChild(BuildContext context) async {
+  Future<List<Child>> getChildren(BuildContext context) async {
     try {
       var querySnapshot = await children.get();
       return querySnapshot.docs

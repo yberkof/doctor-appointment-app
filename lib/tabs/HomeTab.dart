@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:medicare/generated/l10n.dart';
 import 'package:medicare/models/app_model.dart';
 import 'package:medicare/models/child_model.dart';
+import 'package:medicare/services/child_service.dart';
 import 'package:medicare/styles/colors.dart';
 
 import '../screens/add_child_screen.dart';
@@ -22,15 +23,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List<Child> children = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    loadChildren();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,58 +36,53 @@ class _HomeTabState extends State<HomeTab> {
           showBottomSheet(context: context, builder: (c) => AddChildScreen());
         },
       ),
-      body: FutureBuilder<List<Child>>(builder: (context, snapShot) {
-        if (snapShot.hasData) {
-          return GestureDetector(
-            onTap: () {
-              FocusScope.of(context).unfocus();
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: ListView(
-                children: [
-                  SizedBox(
-                    height: 20,
+      body: FutureBuilder<List<Child>>(
+          future: ChildService.shared.getChildren(context),
+          builder: (context, snapShot) {
+            if (snapShot.hasData) {
+              return GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      UserIntro(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        S.current.yourChildren,
+                        style: TextStyle(
+                          color: Color(MyColors.header01),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapShot.data!.length,
+                          itemBuilder: (context, index) {
+                            return TopDoctorCard(
+                              childModel: snapShot.data![index],
+                            );
+                          })
+                    ],
                   ),
-                  UserIntro(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    S.current.yourChildren,
-                    style: TextStyle(
-                      color: Color(MyColors.header01),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: children.length,
-                      itemBuilder: (context, index) {
-                        return TopDoctorCard(
-                          childModel: children[index],
-                        );
-                      })
-                ],
-              ),
-            ),
-          );
-        }
-        return CircularProgressIndicator();
-      }),
+                ),
+              );
+            }
+            return CircularProgressIndicator();
+          }),
     );
   }
 
-  void loadChildren() {
-    children.add(Child(
-        childDateOfBirth: (DateTime.parse("2012-02-27")),
-        childName: "Name",
-        takenVaccines: [],
-        nationalId: '99875554455'));
-  }
 }
 
 class TopDoctorCard extends StatelessWidget {
@@ -134,9 +121,7 @@ class TopDoctorCard extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    'Date Of Birth: ' +
-                        DateFormat("dd/MM/yyyy")
-                            .format(childModel.childDateOfBirth),
+                    'Date Of Birth: ' + childModel.childDateOfBirth,
                     style: TextStyle(
                       color: Color(MyColors.grey02),
                       fontSize: 12,
@@ -149,7 +134,8 @@ class TopDoctorCard extends StatelessWidget {
                   Text(
                     'Age: ' +
                         (DateTime.now()
-                                    .difference(childModel.childDateOfBirth)
+                                    .difference(DateFormat("dd/MM/yyyy")
+                                        .parse(childModel.childDateOfBirth))
                                     .inDays ~/
                                 365)
                             .toString(),

@@ -18,7 +18,7 @@ class Child {
 
   String nationalId;
   String childName;
-  DateTime childDateOfBirth;
+  String childDateOfBirth;
   List<TakenVaccine> takenVaccines;
 
   factory Child.fromJson(Map<String, dynamic> json) => Child(
