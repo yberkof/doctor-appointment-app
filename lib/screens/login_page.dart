@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:medicare/generated/l10n.dart';
 import 'package:medicare/screens/register_page.dart';
 import 'package:medicare/services/auth_service.dart';
@@ -78,7 +79,12 @@ class _LoginPageState extends State<LoginPage> {
                       fontSize: 16, color: Theme.of(context).primaryColor),
                 ),
                 controller: _passwordController!,
-                helpOnTap: () {},
+                helpOnTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (c) => ForgotPasswordScreen()));
+                },
               ),
               SizedBox(height: 12),
               FlatButton(

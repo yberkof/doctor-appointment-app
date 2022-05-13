@@ -9,6 +9,7 @@ import 'package:medicare/services/child_service.dart';
 import 'package:medicare/styles/colors.dart';
 
 import '../screens/add_child_screen.dart';
+import '../screens/child_vaccines_screen.dart';
 
 class HomeTab extends StatefulWidget {
   final void Function() onPressedScheduleCard;
@@ -69,7 +70,7 @@ class _HomeTabState extends State<HomeTab> {
                           shrinkWrap: true,
                           itemCount: snapShot.data!.length,
                           itemBuilder: (context, index) {
-                            return TopDoctorCard(
+                            return ChildCard(
                               childModel: snapShot.data![index],
                             );
                           })
@@ -82,13 +83,12 @@ class _HomeTabState extends State<HomeTab> {
           }),
     );
   }
-
 }
 
-class TopDoctorCard extends StatelessWidget {
+class ChildCard extends StatelessWidget {
   final Child childModel;
 
-  const TopDoctorCard({Key? key, required this.childModel}) : super(key: key);
+  const ChildCard({Key? key, required this.childModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,11 @@ class TopDoctorCard extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, '/detail');
+          showDialog(
+              context: context,
+              builder: (c) => ChildVaccinesScreen(
+                    child: childModel,
+                  ));
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
