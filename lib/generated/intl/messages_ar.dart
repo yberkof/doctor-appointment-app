@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "schoolName": MessageLookupByLibrary.simpleMessage("School Name"),
         "search": MessageLookupByLibrary.simpleMessage("Search"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "vaccines": MessageLookupByLibrary.simpleMessage("Vaccines"),
         "viewAll": MessageLookupByLibrary.simpleMessage("View all"),
         "yourChildren": MessageLookupByLibrary.simpleMessage("اطفالك")
       };

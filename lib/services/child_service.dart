@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medicare/models/child_model.dart';
 
@@ -23,6 +24,8 @@ class ChildService {
     try {
       var querySnapshot = await children.get();
       return querySnapshot.docs
+          .where((element) =>
+              element.get('parentId') == FirebaseAuth.instance.currentUser!.uid)
           .map<Child>((e) => Child.fromJson(e.data() as Map<String, dynamic>))
           .toList();
     } catch (error) {

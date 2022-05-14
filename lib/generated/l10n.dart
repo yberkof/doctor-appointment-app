@@ -380,6 +380,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Vaccines`
+  String get vaccines {
+    return Intl.message(
+      'Vaccines',
+      name: 'vaccines',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

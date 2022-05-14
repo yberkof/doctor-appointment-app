@@ -5,6 +5,8 @@ import 'package:medicare/models/child_model.dart';
 import 'package:medicare/models/vaccine_model.dart';
 import 'package:medicare/services/vaccines_service.dart';
 
+import '../generated/l10n.dart';
+
 class ChildVaccinesScreen extends StatefulWidget {
   final Child child;
 
@@ -19,40 +21,65 @@ class _ChildVaccinesScreenState extends State<ChildVaccinesScreen> {
   Widget build(BuildContext context) {
     return AlertDialog(
       content: SizedBox(
-        width: 300,
-        height: 500,
-        child: FutureBuilder<List<Vaccine>>(
-          future: VaccinesService.shared.getVaccines(context),
-          builder: (c, s) {
-            if (!s.hasData) {
-              return CircularProgressIndicator();
-            }
-            return ListView.builder(
-                itemCount: s.data!.length,
-                itemBuilder: ((context, index) {
-                  return Row(
-                    children: [
-                      widget.child.takenVaccines
-                              .where((element) =>
-                                  element.vaccineName ==
-                                  s.data![index].vaccineName)
-                              .isNotEmpty
-                          ? Icon(
-                              Icons.verified,
-                              color: Colors.green,
-                            )
-                          : Transform.rotate(
-                              angle: 45 * pi / 180,
-                              child: Icon(
-                                Icons.add_circle_outline,
-                                color: Colors.red,
-                              ),
-                            ),
-                      Text(s.data![index].vaccineName)
-                    ],
-                  );
-                }));
-          },
+        height: 300,
+        width: 200,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  S.current.vaccines,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: FutureBuilder<List<Vaccine>>(
+                  future: VaccinesService.shared.getVaccines(context),
+                  builder: (c, s) {
+                    if (!s.hasData) {
+                      return CircularProgressIndicator();
+                    }
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: s.data!.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: ((context, index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              widget.child.takenVaccines
+                                      .where((element) =>
+                                          element.vaccineName ==
+                                          s.data![index].vaccineName)
+                                      .isNotEmpty
+                                  ? Icon(
+                                      Icons.verified,
+                                      color: Colors.green,
+                                    )
+                                  : Transform.rotate(
+                                      angle: 45 * pi / 180,
+                                      child: Icon(
+                                        Icons.add_circle_outline,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(s.data![index].vaccineName),
+                              )
+                            ],
+                          );
+                        }));
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

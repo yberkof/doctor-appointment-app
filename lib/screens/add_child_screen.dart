@@ -1,4 +1,5 @@
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -64,10 +65,6 @@ class _AddChildScreenState extends State<AddChildScreen> {
                 timeLabelText: "Hour",
                 selectableDayPredicate: (date) {
                   // Disable weekend days to select from the calendar
-                  if (date.weekday == 6 || date.weekday == 7) {
-                    return false;
-                  }
-
                   return true;
                 },
                 onChanged: (val) {
@@ -111,6 +108,7 @@ class _AddChildScreenState extends State<AddChildScreen> {
                                   DateFormat('dd/MM/yyyy').format(selectedTime),
                               takenVaccines: [],
                               nationalId: _nationalIdController.text,
+                              parentId: FirebaseAuth.instance.currentUser!.uid,
                             ))
                         .then((value) {
                       AlertHelper.hideProgressDialog(context);

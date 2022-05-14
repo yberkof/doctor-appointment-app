@@ -31,5 +31,6 @@
   "saveAlert": "Save Alert",
   "addHomework": "Add Homework",
   "hello": "Hello",
-  "registerNewAccount": "Register New Account?"
+  "registerNewAccount": "Register New Account?",
+  "vaccines": "Vaccines"
 }
