@@ -65,7 +65,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               for (FilterStatus filterStatus
-                              in FilterStatus.values)
+                                  in FilterStatus.values)
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
@@ -142,10 +142,11 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                     children: [
                                       Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            appointment.doctorName,
+                                            'Vaccine Name: ' +
+                                                appointment.vaccineName,
                                             style: TextStyle(
                                               color: Color(MyColors.header01),
                                               fontWeight: FontWeight.w700,
@@ -155,7 +156,8 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                             height: 5,
                                           ),
                                           Text(
-                                            appointment.vaccineName,
+                                            'Doctor Name: ' +
+                                                appointment.doctorName,
                                             style: TextStyle(
                                               color: Color(MyColors.grey02),
                                               fontSize: 12,
@@ -175,27 +177,29 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                   SizedBox(
                                     height: 15,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: OutlinedButton(
-                                          child: Text('Cancel'),
-                                          onPressed: () {},
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Expanded(
-                                        child: ElevatedButton(
-                                          child: Text('Reschedule'),
-                                          onPressed: () => {},
-                                        ),
-                                      )
-                                    ],
-                                  )
+                                  AppModel.shared.currentUser.value!.role == '3'
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: OutlinedButton(
+                                                child: Text('Cancel'),
+                                                onPressed: () {},
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                child: Text('Reschedule'),
+                                                onPressed: () => {},
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      : Container()
                                 ],
                               ),
                             ),

@@ -66,7 +66,7 @@ class _ParentHomeState extends State<ParentHome> {
                   navigationBarItem['icon'],
                   color: _selectedIndex == 0
                       ? Color(MyColors.bg01)
-                      : Color(MyColors.bg02),
+                      : Color(MyColors.bg01),
                 ),
               ),
               label: '',
