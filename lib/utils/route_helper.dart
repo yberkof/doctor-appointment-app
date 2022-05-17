@@ -16,7 +16,7 @@ class RouteHelper {
         return ParentHome();
       case '4':
         return DoctorHome();
-      case '2':
+      case '3':
         return NurseHome();
       default:
         return ParentHome();

@@ -22,7 +22,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: AppModel.shared.currentUser.value!.role == '2'
+      floatingActionButton: AppModel.shared.currentUser.value!.role == '3'
           ? FloatingActionButton(
               child: Icon(
                 Icons.add,

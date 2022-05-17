@@ -36,4 +36,16 @@ class UsersService {
       Get.back();
     });
   }
+
+  Future<List<User>> getDoctors(BuildContext context) async {
+    var querySnapshot = await users.where('role', isEqualTo: '2').get();
+    try {
+      return querySnapshot.docs
+          .map<User>((e) => User.fromMap(e.data() as Map<String, dynamic>))
+          .toList();
+    } catch (error) {
+      AlertHelper.showError(context, error.toString());
+      return [];
+    }
+  }
 }
