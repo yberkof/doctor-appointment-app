@@ -39,20 +39,31 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       theme: ThemeData(
           primarySwatch: Colors.teal,
+          primaryColor: Colors.teal,
+          accentColor: Colors.teal,
+          buttonColor: Colors.teal,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+            primary: Colors.teal,
+          )),
+          colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.teal,
+              backgroundColor: Colors.teal,
+              primaryColorDark: Colors.teal),
           // Define the default brightness and colors.
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Color(MyColors.primary),
           )
           // Define the default font family.
 
-        // Define the default `TextTheme`. Use this to specify the default
-        // text styling for headlines, titles, bodies of text, and more.
-        // textTheme: const TextTheme(
-        //   headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-        //   headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-        //   bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
-        // ),
-      ),
+          // Define the default `TextTheme`. Use this to specify the default
+          // text styling for headlines, titles, bodies of text, and more.
+          // textTheme: const TextTheme(
+          //   headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          //   headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+          //   bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+          // ),
+          ),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

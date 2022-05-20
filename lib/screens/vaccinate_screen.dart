@@ -13,7 +13,8 @@ class VaccinateScreen extends StatefulWidget {
 
 class _VaccinateScreenState extends State<VaccinateScreen> {
   var editingController = TextEditingController();
-  List<Child>? children = [];
+  List<Child>? children;
+
   List<Child> filteredList = [];
 
   @override
@@ -41,6 +42,10 @@ class _VaccinateScreenState extends State<VaccinateScreen> {
           padding: EdgeInsets.symmetric(horizontal: 30),
           child: ListView(
             children: [
+              SizedBox(
+                height: 20,
+              ),
+              UserIntro(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -49,18 +54,18 @@ class _VaccinateScreenState extends State<VaccinateScreen> {
                   },
                   controller: editingController,
                   decoration: InputDecoration(
-                      labelText: "Search",
+                      labelText: "Search By National ID",
                       hintText: "Search",
                       prefixIcon: Icon(Icons.search),
                       border: OutlineInputBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(25.0)))),
+                              BorderRadius.all(Radius.circular(20.0)))),
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
-              children == null
+              children != null
                   ? ListView.builder(
                       shrinkWrap: true,
                       itemCount: filteredList.length,

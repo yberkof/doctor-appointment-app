@@ -37,6 +37,19 @@ class ChildService {
     }
   }
 
+  Future<void> updateChild(BuildContext context, Child child) async {
+    return children
+        .where('nationalId', isEqualTo: child.nationalId)
+        .get()
+        .then((value) {
+      children.doc(value.docs[0].id).update(child.toJson());
+      AlertHelper.hideProgressDialog(context);
+    }).catchError((error) {
+      AlertHelper.hideProgressDialog(context);
+      AlertHelper.showError(context, error);
+    });
+  }
+
 // void editUser(BuildContext context, Vaccine? currentUser) async {
 //   var querySnapshot =
 //   await Child.where('uid', isEqualTo: currentUser!.uid).get();

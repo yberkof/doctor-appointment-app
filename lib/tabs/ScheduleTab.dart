@@ -55,12 +55,15 @@ class _ScheduleTabState extends State<ScheduleTab> {
               return Padding(
                 padding: const EdgeInsets.only(left: 30, top: 30, right: 30),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: 20,
                     ),
                     UserIntro(),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Text(
                       'Schedule',
                       textAlign: TextAlign.center,
@@ -175,7 +178,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                             'Doctor Name: ' +
                                                 appointment.doctorName,
                                             style: TextStyle(
-                                              color: Color(MyColors.grey02),
+                                              color: Colors.blue,
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
                                             ),
@@ -203,17 +206,17 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                           child: Text('Cancel'),
                                           onPressed: () {},
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Expanded(
-                                        child: ElevatedButton(
-                                          child: Text('Reschedule'),
-                                          onPressed: () => {},
-                                        ),
-                                      )
-                                    ],
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                child: Text('Reschedule'),
+                                                onPressed: () => {},
+                                              ),
+                                            ),
+                                          ],
                                   )
                                       : Container()
                                 ],

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:medicare/generated/l10n.dart';
 import 'package:medicare/models/app_model.dart';
 import 'package:medicare/models/child_model.dart';
+import 'package:medicare/screens/validate_vaccine_screen.dart';
 import 'package:medicare/services/child_service.dart';
 import 'package:medicare/styles/colors.dart';
 
@@ -115,12 +116,29 @@ class ChildCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    if (AppModel.shared.currentUser.value!.role == '3')
+                      Text(
+                        'National ID: ' + childModel.nationalId,
+                        style: TextStyle(
+                          color: Color(MyColors.header01),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       'Name: ' + childModel.childName,
-                      style: TextStyle(
-                        color: Color(MyColors.header01),
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: AppModel.shared.currentUser.value!.role == '3'
+                          ? TextStyle(
+                              color: Color(MyColors.grey02),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            )
+                          : TextStyle(
+                              color: Color(MyColors.header01),
+                              fontWeight: FontWeight.w700,
+                            ),
                     ),
                     SizedBox(
                       height: 5,
@@ -158,7 +176,12 @@ class ChildCard extends StatelessWidget {
               ),
               if (AppModel.shared.currentUser.value!.role == '3')
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showBottomSheet(
+                        context: context,
+                        builder: (c) =>
+                            ValidateVaccineScreen(child: childModel));
+                  },
                   child: Icon(Icons.vaccines),
                 ),
             ],
