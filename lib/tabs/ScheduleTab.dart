@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medicare/models/app_model.dart';
 import 'package:medicare/models/appointment_model.dart';
 import 'package:medicare/screens/add_appointment_screen.dart';
 import 'package:medicare/services/appointments_service.dart';
 import 'package:medicare/styles/colors.dart';
 import 'package:medicare/styles/styles.dart';
+import 'package:medicare/tabs/HomeTab.dart';
 
 class ScheduleTab extends StatefulWidget {
   const ScheduleTab({Key? key}) : super(key: key);
@@ -39,11 +41,26 @@ class _ScheduleTabState extends State<ScheduleTab> {
           future: AppointmentsService().getAppointments(context),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              if (status == FilterStatus.Upcoming) {
+                snapshot.data!.removeWhere((element) => DateFormat(
+                        "dd/MM/yyyy HH:mm")
+                    .parse(element.reservedTime + ' ' + element.reservedDate)
+                    .isBefore(DateTime.now()));
+              } else if (status == FilterStatus.Complete) {
+                snapshot.data!.removeWhere((element) => DateFormat(
+                        "dd/MM/yyyy HH:mm")
+                    .parse(element.reservedTime + ' ' + element.reservedDate)
+                    .isAfter(DateTime.now()));
+              }
               return Padding(
                 padding: const EdgeInsets.only(left: 30, top: 30, right: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    UserIntro(),
                     Text(
                       'Schedule',
                       textAlign: TextAlign.center,
@@ -65,25 +82,24 @@ class _ScheduleTabState extends State<ScheduleTab> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               for (FilterStatus filterStatus
-                                  in FilterStatus.values)
+                              in FilterStatus.values)
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        if (filterStatus ==
-                                            FilterStatus.Upcoming) {
-                                          status = FilterStatus.Upcoming;
-                                          _alignment = Alignment.centerLeft;
-                                        } else if (filterStatus ==
-                                            FilterStatus.Complete) {
-                                          status = FilterStatus.Complete;
-                                          _alignment = Alignment.center;
-                                        } else if (filterStatus ==
-                                            FilterStatus.Cancel) {
-                                          status = FilterStatus.Cancel;
-                                          _alignment = Alignment.centerRight;
-                                        }
-                                      });
+                                      if (filterStatus ==
+                                          FilterStatus.Upcoming) {
+                                        status = FilterStatus.Upcoming;
+                                        _alignment = Alignment.centerLeft;
+                                      } else if (filterStatus ==
+                                          FilterStatus.Complete) {
+                                        status = FilterStatus.Complete;
+                                        _alignment = Alignment.center;
+                                      } else if (filterStatus ==
+                                          FilterStatus.Cancel) {
+                                        status = FilterStatus.Cancel;
+                                        _alignment = Alignment.centerRight;
+                                      }
+                                      setState(() {});
                                     },
                                     child: Center(
                                       child: Text(
@@ -142,7 +158,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                     children: [
                                       Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Vaccine Name: ' +
@@ -179,26 +195,26 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                   ),
                                   AppModel.shared.currentUser.value!.role == '3'
                                       ? Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: OutlinedButton(
-                                                child: Text('Cancel'),
-                                                onPressed: () {},
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 20,
-                                            ),
-                                            Expanded(
-                                              child: ElevatedButton(
-                                                child: Text('Reschedule'),
-                                                onPressed: () => {},
-                                              ),
-                                            )
-                                          ],
-                                        )
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: OutlinedButton(
+                                          child: Text('Cancel'),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          child: Text('Reschedule'),
+                                          onPressed: () => {},
+                                        ),
+                                      )
+                                    ],
+                                  )
                                       : Container()
                                 ],
                               ),

@@ -110,50 +110,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     icon: Icons.lock,
                     isObscureText: true),
                 SizedBox(height: 12),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-
-                  // dropdown below..
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    value: _currentRole,
-                    onChanged: (String? newValue) =>
-                        setState(() => _currentRole = newValue),
-                    items: _roles
-                        .map<DropdownMenuItem<String>>((var value) =>
-                            DropdownMenuItem<String>(
-                              value: value['role'],
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    value['name'],
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Theme.of(context).primaryColor),
-                                  ),
-                                  Text(
-                                    value['desc'],
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ))
-                        .toList(),
-
-                    // add extra sugar..
-                    icon: Icon(Icons.arrow_drop_down),
-                    iconSize: 42,
-                    underline: SizedBox(),
-                  ),
-                ),
-                SizedBox(height: 12),
                 AppTextField(
                   controller: _firstNameController!,
                   hint: S.of(context).firstName,
@@ -193,7 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     firstName: _firstNameController!.text,
                                     lastName: _lastNameController!.text,
                                     uid: value.user!.uid,
-                                    role: _currentRole))
+                                    role: '1'))
                             .then((value) {
                           AlertHelper.hideProgressDialog(context);
                           Navigator.of(context).pop();

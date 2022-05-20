@@ -111,49 +111,56 @@ class ChildCard extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Name: ' + childModel.childName,
-                    style: TextStyle(
-                      color: Color(MyColors.header01),
-                      fontWeight: FontWeight.w700,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Name: ' + childModel.childName,
+                      style: TextStyle(
+                        color: Color(MyColors.header01),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Date Of Birth: ' + childModel.childDateOfBirth,
-                    style: TextStyle(
-                      color: Color(MyColors.grey02),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
+                    SizedBox(
+                      height: 5,
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Age: ' +
-                        (DateTime.now()
-                                    .difference(DateFormat("dd/MM/yyyy")
-                                        .parse(childModel.childDateOfBirth))
-                                    .inDays ~/
-                                365)
-                            .toString(),
-                    style: TextStyle(
-                      color: Color(MyColors.grey02),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
+                    Text(
+                      'Date Of Birth: ' + childModel.childDateOfBirth,
+                      style: TextStyle(
+                        color: Color(MyColors.grey02),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                ],
-              )
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Age: ' +
+                          (DateTime.now()
+                                      .difference(DateFormat("dd/MM/yyyy")
+                                          .parse(childModel.childDateOfBirth))
+                                      .inDays ~/
+                                  365)
+                              .toString(),
+                      style: TextStyle(
+                        color: Color(MyColors.grey02),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                ),
+              ),
+              if (AppModel.shared.currentUser.value!.role == '3')
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Icon(Icons.vaccines),
+                ),
             ],
           ),
         ),

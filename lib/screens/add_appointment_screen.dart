@@ -2,7 +2,6 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:medicare/models/user.dart';
 import 'package:medicare/models/vaccine_model.dart';
@@ -22,15 +21,14 @@ class AddAppointmentScreen extends StatefulWidget {
 }
 
 class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
-
   DateTime selectedTime = DateTime.now();
 
   late String _doctorName = "";
   late String _vaccineName = "";
 
-  List<User> _doctors = [];
+  List<User>? _doctors;
 
-  List<Vaccine> _vaccines = [];
+  List<Vaccine>? _vaccines;
 
   @override
   void initState() {
@@ -53,76 +51,115 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 backgroundColor: Theme.of(context).primaryColor,
                 title: Text('Add Appointment'),
               ),
-              ValueBuilder<String>(
-                  initialValue: _doctorName,
-                  builder: (snapshot, upFn) {
-                    return DropdownButton<String>(
-                      isExpanded: true,
-                      value: _doctorName,
-                      onChanged: (String? newValue) {
-                        _doctorName = newValue!;
-                        upFn.call(_doctorName);
-                      },
-                      items: _doctors
-                          .map<DropdownMenuItem<String>>((var value) =>
-                              DropdownMenuItem<String>(
-                                value: value.uid,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      value.firstName + ' ' + value.lastName,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                    ),
-                                  ],
-                                ),
-                              ))
-                          .toList(),
+              _doctors != null
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Doctor Name',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DropdownButton<String>(
+                              isExpanded: true,
 
-                      // add extra sugar..
-                      icon: Icon(Icons.arrow_drop_down),
-                      iconSize: 42,
-                      underline: SizedBox(),
-                    );
-                  }),
-              ValueBuilder<String>(
-                  initialValue: _vaccineName,
-                  builder: (snapshot, upFn) {
-                    return DropdownButton<String>(
-                      isExpanded: true,
-                      value: _vaccineName,
-                      onChanged: (String? newValue) {
-                        _vaccineName = newValue!;
-                        upFn.call(_vaccineName);
-                      },
-                      items: _vaccines
-                          .map<DropdownMenuItem<String>>((var value) =>
-                              DropdownMenuItem<String>(
-                                value: value.vaccineName,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      value.vaccineName,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                    ),
-                                  ],
-                                ),
-                              ))
-                          .toList(),
+                              value: _doctorName,
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _doctorName = newValue!;
+                                });
+                              },
+                              items: _doctors!
+                                  .map<DropdownMenuItem<String>>(
+                                      (var value) => DropdownMenuItem<String>(
+                                            value: value.uid,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  value.firstName +
+                                                      ' ' +
+                                                      value.lastName,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
+                                                ),
+                                              ],
+                                            ),
+                                          ))
+                                  .toList(),
 
-                      // add extra sugar..
-                      icon: Icon(Icons.arrow_drop_down),
-                      iconSize: 42,
-                      underline: SizedBox(),
-                    );
-                  }),
+                              // add extra sugar..
+                              icon: Icon(Icons.arrow_drop_down),
+                              iconSize: 42,
+                              underline: SizedBox(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : CircularProgressIndicator(),
+              _vaccines != null
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Vaccine Name',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: DropdownButton<String>(
+                              isExpanded: true,
+                              value: _vaccineName,
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _vaccineName = newValue!;
+                                });
+                              },
+                              items: _vaccines!
+                                  .map<DropdownMenuItem<String>>(
+                                      (var value) => DropdownMenuItem<String>(
+                                            value: value.vaccineName,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  value.vaccineName,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
+                                                ),
+                                              ],
+                                            ),
+                                          ))
+                                  .toList(),
+
+                              // add extra sugar..
+                              icon: Icon(Icons.arrow_drop_down),
+                              iconSize: 42,
+                              underline: SizedBox(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : CircularProgressIndicator(),
               DateTimePicker(
                 type: DateTimePickerType.dateTime,
                 dateMask: 'd MMM, yyyy',
@@ -172,17 +209,21 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                   ),
                   onPressed: () {
                     AlertHelper.showProgressDialog(context);
+                    var user = _doctors!
+                        .where((element) => _doctorName == element.uid)
+                        .first;
                     AppointmentsService.shared
                         .addAppointment(
-                            context,
-                            Appointment(
-                                vaccineName: _vaccineName!,
-                                reservedTime: DateFormat('dd/MM/yyyy')
-                                    .format(selectedTime),
-                                status: FilterStatus.Upcoming.toString(),
-                                doctorName: _doctorName!,
-                                reservedDate:
-                                    DateFormat('HH:MM').format(selectedTime)))
+                        context,
+                        Appointment(
+                            vaccineName: _vaccineName,
+                            reservedTime: DateFormat('dd/MM/yyyy')
+                                .format(selectedTime),
+                            status: FilterStatus.Upcoming.toString(),
+                            doctorName:
+                            user.firstName + " " + user.lastName,
+                            reservedDate:
+                            DateFormat('HH:MM').format(selectedTime)))
                         .then((value) {
                       AlertHelper.hideProgressDialog(context);
                       Navigator.of(context).pop();
@@ -199,13 +240,20 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
 
   void buildVaccines(BuildContext context) async {
     var vaccines = await VaccinesService.shared.getVaccines(context);
-    _vaccineName = vaccines[0].vaccineName;
-    _vaccines = vaccines;
+
+    setState(() {
+      _vaccines = vaccines;
+      _vaccineName = vaccines[0].vaccineName;
+    });
   }
 
   void buildDoctors(BuildContext context) async {
     var doctors = await UsersService.shared.getDoctors(context);
-    _doctorName ??= doctors[0].uid;
-    _doctors = doctors;
+
+    setState(() {
+      _doctors = doctors;
+
+      _doctorName = _doctors![0].uid;
+    });
   }
 }
