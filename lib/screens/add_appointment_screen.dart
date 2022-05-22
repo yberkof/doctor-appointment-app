@@ -171,9 +171,6 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                 timeLabelText: "Hour",
                 selectableDayPredicate: (date) {
                   // Disable weekend days to select from the calendar
-                  if (date.weekday == 6 || date.weekday == 7) {
-                    return false;
-                  }
 
                   return true;
                 },

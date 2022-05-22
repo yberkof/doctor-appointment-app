@@ -2,8 +2,8 @@
     package="com.example.medicare">
     <permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
    <application
-        android:label="medicare"
-        android:name="${applicationName}"
+        android:label="Children Vaccine"
+       android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

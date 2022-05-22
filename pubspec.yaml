@@ -13,8 +13,6 @@ dependencies:
   get:
   cached_network_image: ^3.2.0
   intl:
-  firebase_auth:
-  firebase_core:
   flutter_svg:
   cloud_firestore:
   cool_alert:

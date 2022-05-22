@@ -32,6 +32,22 @@ class AppointmentsService {
     }
   }
 
+  Future<void> deleteAppointment(
+      Appointment appointment, BuildContext context) async {
+    try {
+      var querySnapshot = await appointments
+          .where('doctorName', isEqualTo: appointment.doctorName)
+          .where('reservedDate', isEqualTo: appointment.reservedDate)
+          .where('reservedTime', isEqualTo: appointment.reservedTime)
+          .get();
+      await appointments.doc(querySnapshot.docs.first.reference.id).delete();
+      AlertHelper.hideProgressDialog(context);
+    } catch (error) {
+      AlertHelper.showError(context, error.toString());
+      return;
+    }
+  }
+
 // void editUser(BuildContext context, Appointment? currentUser) async {
 //   var querySnapshot =
 //   await Appointments.where('uid', isEqualTo: currentUser!.uid).get();

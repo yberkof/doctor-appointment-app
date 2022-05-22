@@ -7,6 +7,7 @@ import 'package:medicare/services/appointments_service.dart';
 import 'package:medicare/styles/colors.dart';
 import 'package:medicare/styles/styles.dart';
 import 'package:medicare/tabs/HomeTab.dart';
+import 'package:medicare/utils/alert_helper.dart';
 
 class ScheduleTab extends StatefulWidget {
   const ScheduleTab({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class ScheduleTab extends StatefulWidget {
   State<ScheduleTab> createState() => _ScheduleTabState();
 }
 
-enum FilterStatus { Upcoming, Complete, Cancel }
+enum FilterStatus { Upcoming, Complete }
 
 class _ScheduleTabState extends State<ScheduleTab> {
   FilterStatus status = FilterStatus.Upcoming;
@@ -96,10 +97,6 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                       } else if (filterStatus ==
                                           FilterStatus.Complete) {
                                         status = FilterStatus.Complete;
-                                        _alignment = Alignment.center;
-                                      } else if (filterStatus ==
-                                          FilterStatus.Cancel) {
-                                        status = FilterStatus.Cancel;
                                         _alignment = Alignment.centerRight;
                                       }
                                       setState(() {});
@@ -119,7 +116,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                           duration: Duration(milliseconds: 200),
                           alignment: _alignment,
                           child: Container(
-                            width: 100,
+                            width: 150,
                             height: 40,
                             decoration: BoxDecoration(
                               color: Color(MyColors.primary),
@@ -196,25 +193,35 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                   SizedBox(
                                     height: 15,
                                   ),
-                                  AppModel.shared.currentUser.value!.role == '3'
+                                  AppModel.shared.currentUser.value!.role ==
+                                              '3' &&
+                                          DateFormat("dd/MM/yyyy HH:mm")
+                                              .parse(appointment.reservedTime +
+                                                  ' ' +
+                                                  appointment.reservedDate)
+                                              .isAfter(DateTime.now())
                                       ? Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        child: OutlinedButton(
-                                          child: Text('Cancel'),
-                                          onPressed: () {},
-                                        ),
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: OutlinedButton(
+                                                child: Text('Cancel'),
+                                                onPressed: () {
+                                                  AlertHelper
+                                                      .showProgressDialog(
+                                                          context);
+                                                  AppointmentsService.shared
+                                                      .deleteAppointment(
+                                                          appointment, context)
+                                                      .then((value) {
+                                                    setState(() {});
+                                                  });
+                                                },
+                                              ),
                                             ),
                                             SizedBox(
                                               width: 20,
-                                            ),
-                                            Expanded(
-                                              child: ElevatedButton(
-                                                child: Text('Reschedule'),
-                                                onPressed: () => {},
-                                              ),
                                             ),
                                           ],
                                   )
