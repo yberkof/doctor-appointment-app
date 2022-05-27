@@ -22,6 +22,8 @@ class _AddVaccineScreenState extends State<AddVaccineScreen> {
   late TextEditingController _daysController;
   DateTime selectedTime = DateTime.now();
 
+  bool _hasSecondDose = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -55,6 +57,19 @@ class _AddVaccineScreenState extends State<AddVaccineScreen> {
                 controller: _vaccineDescController,
                 hint: 'Vaccine Description',
                 icon: Icons.description_outlined,
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: _hasSecondDose,
+                    onChanged: (v) {
+                      setState(() {
+                        _hasSecondDose = v!;
+                      });
+                    },
+                  ),
+                  Text('Has Second Dose?')
+                ],
               ),
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -134,7 +149,8 @@ class _AddVaccineScreenState extends State<AddVaccineScreen> {
                                 vaccineTime: VaccineTime(
                                     years: int.parse(_yearsController.text),
                                     months: int.parse(_monthsController.text),
-                                    days: int.parse(_daysController.text))))
+                                    days: int.parse(_daysController.text)),
+                                hasSecondDose: _hasSecondDose))
                         .then((value) {
                           AlertHelper.hideProgressDialog(context);
                           Navigator.of(context).pop();

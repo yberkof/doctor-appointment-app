@@ -5,6 +5,7 @@ class User {
   String role;
   String uid;
   String? image = '';
+  String city = '';
 
   User(
       {this.image,
@@ -12,7 +13,8 @@ class User {
       required this.email,
       required this.firstName,
       required this.lastName,
-      required this.role});
+      required this.role,
+      required this.city});
 
   Map<String, dynamic> toMap() {
     return {
@@ -21,6 +23,7 @@ class User {
       'lastName': lastName,
       'role': role,
       'uid': uid,
+      'city': city,
       'image': image
     };
   }
@@ -32,6 +35,7 @@ class User {
         lastName: data['lastName'],
         firstName: data['firstName'],
         email: data['email'],
+        city: data['city'],
         image: data['image']);
   }
 }

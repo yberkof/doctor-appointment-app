@@ -76,8 +76,8 @@ class CustomRangeTextInputFormatter extends TextInputFormatter {
   ) {
     if (newValue.text == '') {
       return TextEditingValue();
-    } else if (int.parse(newValue.text) < 1) {
-      return TextEditingValue().copyWith(text: '1');
+    } else if (int.parse(newValue.text) < 0) {
+      return TextEditingValue().copyWith(text: '0');
     }
 
     return int.parse(newValue.text) > max

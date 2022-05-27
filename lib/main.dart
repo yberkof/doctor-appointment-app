@@ -19,6 +19,9 @@ Future<void> main() async {
   Get.updateLocale(Locale('en'));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // UserMigration().migrateUserCity();
+  // VaccineMigration().migrateVaccineSecondDose();
+
   Get.put(AppModel.shared);
   if (FirebaseAuth.instance.currentUser != null) {
     AppModelHelper.shared.loadCurrentUser(() {
@@ -37,6 +40,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       builder: fixTextScale,
       supportedLocales: S.delegate.supportedLocales,
+      locale: Locale('en'),
       theme: ThemeData(
           primarySwatch: Colors.teal,
           primaryColor: Colors.teal,

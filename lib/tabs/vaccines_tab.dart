@@ -100,12 +100,36 @@ class _VaccinesTabState extends State<VaccinesTab> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
-                                      Text(
-                                        vaccine.vaccineName,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18.0,
-                                        ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            vaccine.vaccineName,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18.0,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 20.0,
+                                          ),
+                                          if (vaccine.hasSecondDose) ...[
+                                            Icon(
+                                              Icons.info_outline,
+                                              color: Colors.blue,
+                                              size: 15,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              'Has A Second Dose',
+                                              style: TextStyle(
+                                                color: Colors.blue,
+                                                fontSize: 12.0,
+                                              ),
+                                            ),
+                                          ]
+                                        ],
                                       ),
                                       SizedBox(height: 15.0),
                                       Row(

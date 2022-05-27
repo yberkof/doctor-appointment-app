@@ -41,6 +41,9 @@ class _RegisterPageState extends State<RegisterPage> {
     },
     {"name": "Doctor", "desc": "add and edit scheduled vaccines", "role": '4'},
   ];
+  var list = ['Amman', 'Aqaba'];
+
+  late String _selectedCity;
 
   @override
   void initState() {
@@ -52,6 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _lastNameController = TextEditingController();
     _roleDropdownEditingController.value = _roles[0];
     _currentRole = _roles[1]['role'];
+    _selectedCity = list[0];
   }
 
   @override
@@ -110,6 +114,26 @@ class _RegisterPageState extends State<RegisterPage> {
                     icon: Icons.lock,
                     isObscureText: true),
                 SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton<String>(
+                      icon: Icon(
+                        Icons.location_city,
+                        color: Colors.black54,
+                      ),
+                      isExpanded: true,
+                      value: _selectedCity,
+                      elevation: 15,
+                      items: list
+                          .map((e) => DropdownMenuItem<String>(
+                              child: Text(e), value: e))
+                          .toList(),
+                      onChanged: (e) {
+                        setState(() {
+                          _selectedCity = e!;
+                        });
+                      }),
+                ),
                 AppTextField(
                   controller: _firstNameController!,
                   hint: S.of(context).firstName,
@@ -149,6 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     firstName: _firstNameController!.text,
                                     lastName: _lastNameController!.text,
                                     uid: value.user!.uid,
+                                    city: _selectedCity,
                                     role: '1'))
                             .then((value) {
                           AlertHelper.hideProgressDialog(context);

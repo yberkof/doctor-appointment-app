@@ -13,22 +13,26 @@ class Vaccine {
     required this.vaccineName,
     required this.vaccineDesc,
     required this.vaccineTime,
+    required this.hasSecondDose,
   });
 
   String vaccineName;
   String vaccineDesc;
   VaccineTime vaccineTime;
+  bool hasSecondDose;
 
   factory Vaccine.fromJson(Map<String, dynamic> json) => Vaccine(
         vaccineName: json["vaccineName"],
         vaccineDesc: json["vaccineDesc"],
         vaccineTime: VaccineTime.fromJson(json["vaccineTime"]),
+        hasSecondDose: json["hasSecondDose"],
       );
 
   Map<String, dynamic> toJson() => {
         "vaccineName": vaccineName,
         "vaccineDesc": vaccineDesc,
         "vaccineTime": vaccineTime.toJson(),
+        "hasSecondDose": hasSecondDose,
       };
 }
 
