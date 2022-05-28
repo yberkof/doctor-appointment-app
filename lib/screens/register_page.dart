@@ -1,6 +1,7 @@
 import 'package:dropdown_plus/dropdown_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medicare/configuration/app_constant.dart';
 import 'package:medicare/models/user.dart' as user;
 
 import '../generated/l10n.dart';
@@ -41,7 +42,6 @@ class _RegisterPageState extends State<RegisterPage> {
     },
     {"name": "Doctor", "desc": "add and edit scheduled vaccines", "role": '4'},
   ];
-  var list = ['Amman', 'Aqaba'];
 
   late String _selectedCity;
 
@@ -55,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _lastNameController = TextEditingController();
     _roleDropdownEditingController.value = _roles[0];
     _currentRole = _roles[1]['role'];
-    _selectedCity = list[0];
+    _selectedCity = JORDAN_REGIONS[0]['value']!;
   }
 
   @override
@@ -124,9 +124,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       isExpanded: true,
                       value: _selectedCity,
                       elevation: 15,
-                      items: list
+                      items: JORDAN_REGIONS
                           .map((e) => DropdownMenuItem<String>(
-                              child: Text(e), value: e))
+                              child: Text(e['name']!), value: e['value']))
                           .toList(),
                       onChanged: (e) {
                         setState(() {

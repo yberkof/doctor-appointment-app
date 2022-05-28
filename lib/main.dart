@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:medicare/generated/l10n.dart';
+import 'package:medicare/migrations/child_migration.dart';
 import 'package:medicare/screens/welcome_screen.dart';
 import 'package:medicare/styles/colors.dart';
 import 'package:medicare/utils/app_model_helper.dart';
@@ -21,7 +22,9 @@ Future<void> main() async {
   await Firebase.initializeApp();
   // UserMigration().migrateUserCity();
   // VaccineMigration().migrateVaccineSecondDose();
-
+  // AppointmentMigration().migrateAppointmentSecondDose();
+  // AppointmentMigration().migrateAppointmentRegions();
+  ChildMigration().migrateChildrenTakenVaccines();
   Get.put(AppModel.shared);
   if (FirebaseAuth.instance.currentUser != null) {
     AppModelHelper.shared.loadCurrentUser(() {

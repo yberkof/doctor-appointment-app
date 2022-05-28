@@ -25,6 +25,8 @@ class _ValidateVaccineScreenState extends State<ValidateVaccineScreen> {
 
   List<Vaccine>? _vaccines;
 
+  var _isSecondDose = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -109,6 +111,25 @@ class _ValidateVaccineScreenState extends State<ValidateVaccineScreen> {
                       ),
                     )
                   : CircularProgressIndicator(),
+              if (_vaccines != null &&
+                  _vaccines!
+                      .where((element) =>
+                          element.vaccineName == _vaccineName &&
+                          element.hasSecondDose)
+                      .isNotEmpty)
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _isSecondDose,
+                      onChanged: (v) {
+                        setState(() {
+                          _isSecondDose = v!;
+                        });
+                      },
+                    ),
+                    Text('Is Second Dose?')
+                  ],
+                ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: FlatButton(
@@ -125,8 +146,10 @@ class _ValidateVaccineScreenState extends State<ValidateVaccineScreen> {
                   ),
                   onPressed: () {
                     AlertHelper.showProgressDialog(context);
-                    widget.child.takenVaccines
-                        .add(TakenVaccine(vaccineName: _vaccineName));
+                    widget.child.takenVaccines.add(TakenVaccine(
+                      vaccineName: _vaccineName,
+                      isSecondDose: _isSecondDose,
+                    ));
                     ChildService.shared
                         .updateChild(context, widget.child)
                         .then((value) => Navigator.pop(context));

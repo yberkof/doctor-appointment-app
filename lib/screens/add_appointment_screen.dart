@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medicare/configuration/app_constant.dart';
 import 'package:medicare/models/user.dart';
 import 'package:medicare/models/vaccine_model.dart';
 import 'package:medicare/services/vaccines_service.dart';
@@ -29,6 +30,10 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
   List<User>? _doctors;
 
   List<Vaccine>? _vaccines;
+
+  bool _isSecondDose = false;
+
+  String _selectedRegion = JORDAN_REGIONS[0]["value"]!;
 
   @override
   void initState() {
@@ -160,6 +165,76 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                       ),
                     )
                   : CircularProgressIndicator(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Region Name',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: _selectedRegion,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedRegion = newValue!;
+                          });
+                        },
+                        items: JORDAN_REGIONS
+                            .map<DropdownMenuItem<String>>(
+                                (var value) => DropdownMenuItem<String>(
+                                      value: value["value"],
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            value["name"]!,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ))
+                            .toList(),
+
+                        // add extra sugar..
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 42,
+                        underline: SizedBox(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (_vaccines != null &&
+                  _vaccines!
+                      .where((element) =>
+                          element.vaccineName == _vaccineName &&
+                          element.hasSecondDose)
+                      .isNotEmpty)
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _isSecondDose,
+                      onChanged: (v) {
+                        setState(() {
+                          _isSecondDose = v!;
+                        });
+                      },
+                    ),
+                    Text('Is Second Dose?')
+                  ],
+                ),
               DateTimePicker(
                 type: DateTimePickerType.dateTime,
                 dateMask: 'd MMM, yyyy',
@@ -211,16 +286,18 @@ class _AddAppointmentScreenState extends State<AddAppointmentScreen> {
                         .first;
                     AppointmentsService.shared
                         .addAppointment(
-                        context,
-                        Appointment(
-                            vaccineName: _vaccineName,
-                            reservedTime: DateFormat('dd/MM/yyyy')
-                                .format(selectedTime),
-                            status: FilterStatus.Upcoming.toString(),
-                            doctorName:
-                            user.firstName + " " + user.lastName,
-                            reservedDate:
-                            DateFormat('HH:MM').format(selectedTime)))
+                            context,
+                            Appointment(
+                                vaccineName: _vaccineName,
+                                reservedTime: DateFormat('dd/MM/yyyy')
+                                    .format(selectedTime),
+                                status: FilterStatus.Upcoming.toString(),
+                                doctorName:
+                                    user.firstName + " " + user.lastName,
+                                reservedDate:
+                                    DateFormat('HH:MM').format(selectedTime),
+                                isSecondDose: _isSecondDose,
+                                region: _selectedRegion))
                         .then((value) {
                       AlertHelper.hideProgressDialog(context);
                       Navigator.of(context).pop();

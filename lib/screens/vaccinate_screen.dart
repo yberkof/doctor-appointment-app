@@ -40,7 +40,7 @@ class _VaccinateScreenState extends State<VaccinateScreen> {
         },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 30),
-          child: ListView(
+          child: Column(
             children: [
               SizedBox(
                 height: 20,
@@ -66,14 +66,17 @@ class _VaccinateScreenState extends State<VaccinateScreen> {
                 height: 20,
               ),
               children != null
-                  ? ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: filteredList.length,
-                      itemBuilder: (context, index) {
-                        return ChildCard(
-                          childModel: filteredList[index],
-                        );
-                      })
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: filteredList.length,
+                          itemBuilder: (context, index) {
+                            return ChildCard(
+                              childModel: filteredList[index],
+                            );
+                          }),
+                    )
                   : CircularProgressIndicator()
             ],
           ),

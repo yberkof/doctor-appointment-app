@@ -86,7 +86,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               for (FilterStatus filterStatus
-                              in FilterStatus.values)
+                                  in FilterStatus.values)
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
@@ -158,22 +158,56 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                     children: [
                                       Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            'Vaccine Name: ' +
-                                                appointment.vaccineName,
-                                            style: TextStyle(
-                                              color: Color(MyColors.header01),
-                                              fontWeight: FontWeight.w700,
+                                          Row(children: [
+                                            Text(
+                                              'Vaccine Name: ' +
+                                                  appointment.vaccineName,
+                                              style: TextStyle(
+                                                color: Color(MyColors.header01),
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
-                                          ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            if (appointment.isSecondDose) ...[
+                                              Icon(
+                                                Icons.info_outline,
+                                                color: Colors.blue,
+                                                size: 15,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                'Second Dose',
+                                                style: TextStyle(
+                                                  color: Colors.blue,
+                                                  fontSize: 12.0,
+                                                ),
+                                              ),
+                                            ],
+                                          ]),
                                           SizedBox(
                                             height: 5,
                                           ),
                                           Text(
                                             'Doctor Name: ' +
                                                 appointment.doctorName,
+                                            style: TextStyle(
+                                              color: Colors.blue,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            'Region Name: ' +
+                                                appointment.region,
                                             style: TextStyle(
                                               color: Colors.blue,
                                               fontSize: 12,

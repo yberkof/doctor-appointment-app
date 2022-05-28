@@ -45,17 +45,23 @@ class Child {
 }
 
 class TakenVaccine {
+  bool isSecondDose;
+
   TakenVaccine({
     required this.vaccineName,
+    required this.isSecondDose,
   });
 
   String vaccineName;
 
   factory TakenVaccine.fromJson(Map<String, dynamic> json) => TakenVaccine(
         vaccineName: json["vaccineName"],
+        isSecondDose: json["isSecondDose"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "vaccineName": vaccineName,
+        "isSecondDose": isSecondDose,
       };
 }

@@ -22,7 +22,7 @@ class _ChildVaccinesScreenState extends State<ChildVaccinesScreen> {
     return AlertDialog(
       content: SizedBox(
         height: 300,
-        width: 200,
+        width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,31 +48,40 @@ class _ChildVaccinesScreenState extends State<ChildVaccinesScreen> {
                         itemCount: s.data!.length,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: ((context, index) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              widget.child.takenVaccines
-                                      .where((element) =>
-                                          element.vaccineName ==
-                                          s.data![index].vaccineName)
-                                      .isNotEmpty
-                                  ? Icon(
-                                      Icons.verified,
-                                      color: Colors.green,
-                                    )
-                                  : Transform.rotate(
-                                      angle: 45 * pi / 180,
-                                      child: Icon(
-                                        Icons.add_circle_outline,
-                                        color: Colors.red,
+                          return Container(
+                            height: 75,
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                widget.child.takenVaccines
+                                        .where((element) =>
+                                            element.vaccineName ==
+                                            s.data![index].vaccineName)
+                                        .isNotEmpty
+                                    ? Icon(
+                                        Icons.verified,
+                                        color: Colors.green,
+                                      )
+                                    : Transform.rotate(
+                                        angle: 45 * pi / 180,
+                                        child: Icon(
+                                          Icons.add_circle_outline,
+                                          color: Colors.red,
+                                        ),
                                       ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Text(
+                                      s.data![index].vaccineName,
+                                      textDirection: TextDirection.rtl,
                                     ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(s.data![index].vaccineName),
-                              )
-                            ],
+                                  ),
+                                )
+                              ],
+                            ),
                           );
                         }));
                   },

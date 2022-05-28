@@ -42,41 +42,35 @@ class _HomeTabState extends State<HomeTab> {
           future: ChildService.shared.getChildren(context),
           builder: (context, snapShot) {
             if (snapShot.hasData) {
-              return GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: ListView(
-                    children: [
-                      SizedBox(
-                        height: 20,
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    UserIntro(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      S.current.yourChildren,
+                      style: TextStyle(
+                        color: Color(MyColors.header01),
+                        fontWeight: FontWeight.bold,
                       ),
-                      UserIntro(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        S.current.yourChildren,
-                        style: TextStyle(
-                          color: Color(MyColors.header01),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapShot.data!.length,
-                          itemBuilder: (context, index) {
-                            return ChildCard(
-                              childModel: snapShot.data![index],
-                            );
-                          })
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ListView.builder(
+                        itemCount: snapShot.data!.length,
+                        itemBuilder: (context, index) {
+                          return ChildCard(
+                            childModel: snapShot.data![index],
+                          );
+                        })
+                  ],
                 ),
               );
             }
