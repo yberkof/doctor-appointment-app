@@ -32,5 +32,7 @@
   "addHomework": "Add Homework",
   "hello": "Hello",
   "registerNewAccount": "Register New Account?",
-  "vaccines": "Vaccines"
+  "vaccines": "Vaccines",
+  "firstDose": "First Dose",
+  "secondDose": "Second Dose"
 }

@@ -390,6 +390,26 @@ class S {
       args: [],
     );
   }
+
+  /// `First Dose`
+  String get firstDose {
+    return Intl.message(
+      'First Dose',
+      name: 'firstDose',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Second Dose`
+  String get secondDose {
+    return Intl.message(
+      'Second Dose',
+      name: 'secondDose',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

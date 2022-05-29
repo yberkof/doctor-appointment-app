@@ -49,39 +49,104 @@ class _ChildVaccinesScreenState extends State<ChildVaccinesScreen> {
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: ((context, index) {
                           return Container(
-                            height: 75,
                             padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                widget.child.takenVaccines
-                                        .where((element) =>
-                                            element.vaccineName ==
-                                            s.data![index].vaccineName)
-                                        .isNotEmpty
-                                    ? Icon(
-                                        Icons.verified,
-                                        color: Colors.green,
-                                      )
-                                    : Transform.rotate(
-                                        angle: 45 * pi / 180,
-                                        child: Icon(
-                                          Icons.add_circle_outline,
-                                          color: Colors.red,
+                            child: s.data![index].hasSecondDose
+                                ? Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.info_outline_rounded,
+                                            color: Colors.blue,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Expanded(
+                                              child: Text(
+                                                  s.data![index].vaccineName)),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            widget.child.takenVaccines
+                                                    .where((element) =>
+                                                        element.vaccineName ==
+                                                            s.data![index]
+                                                                .vaccineName &&
+                                                        !element.isSecondDose)
+                                                    .isNotEmpty
+                                                ? Icon(
+                                                    Icons.verified,
+                                                    color: Colors.green,
+                                                  )
+                                                : Transform.rotate(
+                                                    angle: 45 * pi / 180,
+                                                    child: Icon(
+                                                      Icons.add_circle_outline,
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: Text(
+                                                  S.current.firstDose,
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0),
-                                    child: Text(
-                                      s.data![index].vaccineName,
-                                      textDirection: TextDirection.rtl,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            widget.child.takenVaccines
+                                                    .where((element) =>
+                                                        element.vaccineName ==
+                                                            s.data![index]
+                                                                .vaccineName &&
+                                                        element.isSecondDose)
+                                                    .isNotEmpty
+                                                ? Icon(
+                                                    Icons.verified,
+                                                    color: Colors.green,
+                                                  )
+                                                : Transform.rotate(
+                                                    angle: 45 * pi / 180,
+                                                    child: Icon(
+                                                      Icons.add_circle_outline,
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: Text(
+                                                  S.current.secondDose,
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                : buildOneDoseRow(s, index),
                           );
                         }));
                   },
@@ -91,6 +156,38 @@ class _ChildVaccinesScreenState extends State<ChildVaccinesScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Row buildOneDoseRow(AsyncSnapshot<List<Vaccine>> s, int index) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        widget.child.takenVaccines
+                .where((element) =>
+                    element.vaccineName == s.data![index].vaccineName)
+                .isNotEmpty
+            ? Icon(
+                Icons.verified,
+                color: Colors.green,
+              )
+            : Transform.rotate(
+                angle: 45 * pi / 180,
+                child: Icon(
+                  Icons.add_circle_outline,
+                  color: Colors.red,
+                ),
+              ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              s.data![index].vaccineName,
+              textDirection: TextDirection.rtl,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
