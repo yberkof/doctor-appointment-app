@@ -44,33 +44,37 @@ class _HomeTabState extends State<HomeTab> {
             if (snapShot.hasData) {
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    UserIntro(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      S.current.yourChildren,
-                      style: TextStyle(
-                        color: Color(MyColors.header01),
-                        fontWeight: FontWeight.bold,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ListView.builder(
-                        itemCount: snapShot.data!.length,
-                        itemBuilder: (context, index) {
-                          return ChildCard(
-                            childModel: snapShot.data![index],
-                          );
-                        })
-                  ],
+                      UserIntro(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        S.current.yourChildren,
+                        style: TextStyle(
+                          color: Color(MyColors.header01),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ListView.builder(
+                          itemCount: snapShot.data!.length,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return ChildCard(
+                              childModel: snapShot.data![index],
+                            );
+                          })
+                    ],
+                  ),
                 ),
               );
             }
